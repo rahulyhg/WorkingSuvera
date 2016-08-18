@@ -25,7 +25,7 @@ public class DrugLoader {
     private String loadJson(){
         String json = null;
         try {
-            InputStream is = launchContext.getAssets().open("yourfilename.json");
+            InputStream is = launchContext.getAssets().open("drugs.json");
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
