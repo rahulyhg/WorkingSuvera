@@ -15,9 +15,9 @@ import java.util.ArrayList;
  * Created by William Meaton on 8/17/2016.
  */
 public class DrugLoader {
+
     private ArrayList<Drug> drugsList = new ArrayList<Drug>();
     private Context launchContext;
-
 
     public DrugLoader(Context ctx) {
         this.launchContext = ctx;
@@ -71,5 +71,9 @@ public class DrugLoader {
         }catch (JSONException e){
             Log.e("JSON", e.getMessage());
         }
+    }
+    
+    public ArrayList<Drug> getDrugsList() {
+        return drugsList;
     }
 }
