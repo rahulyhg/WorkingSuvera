@@ -68,6 +68,7 @@ public class DrugLoader {
                 //add the new drug
                 drugsList.add(new Drug(name, type, url));
             }
+            Log.d("Drug Count", String.valueOf(drugsList.size()));
         }catch (JSONException e){
             Log.e("JSON", e.getMessage());
         }
