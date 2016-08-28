@@ -22,12 +22,15 @@ public class MainActivity extends AppCompatActivity {
     Context context;
     PendingIntent pendingIntent;
     String hour_s, hour_m;
+    DrugLoader drugLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.context = this;
+        drugLoader = new DrugLoader(this);
+        drugLoader.loadDrugs();
         //initialise alarm manager
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
@@ -49,9 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-
                 //sets calendar instance with hour and minute we picked on time picker
-
                 calendar.set(Calendar.HOUR_OF_DAY, timePicker.getCurrentHour());
                 calendar.set(Calendar.MINUTE, timePicker.getCurrentMinute());
 
