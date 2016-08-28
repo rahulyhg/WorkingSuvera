@@ -31,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
         this.context = this;
         drugLoader = new DrugLoader(this);
         drugLoader.loadDrugs();
+
+        //if
+
+
         //initialise alarm manager
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
