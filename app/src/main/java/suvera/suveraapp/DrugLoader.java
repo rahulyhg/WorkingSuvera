@@ -68,11 +68,22 @@ public class DrugLoader {
                 //add the new drug
                 drugsList.add(new Drug(name, type, url));
             }
+            Log.d("Drug Count", String.valueOf(drugsList.size()));
         }catch (JSONException e){
             Log.e("JSON", e.getMessage());
         }
     }
-    
+
+    public ArrayList<Drug> search(String search){
+        ArrayList<Drug> result = new ArrayList<Drug>();
+        for(Drug d : drugsList){
+            if(d.getName().contains(search)){
+                result.add(d);
+            }
+        }
+        return result;
+    }
+
     public ArrayList<Drug> getDrugsList() {
         return drugsList;
     }
