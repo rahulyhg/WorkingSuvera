@@ -10,9 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
-public class SelectDrug extends Fragment {
+public class SelectDrug extends Fragment implements View.OnClickListener{
     private OnFragmentInteractionListener mListener;
     private AutoCompleteTextView txtDrugName;
+    private View parentView;
 
     public SelectDrug() {
         // Required empty public constructor
@@ -23,6 +24,7 @@ public class SelectDrug extends Fragment {
                              Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.fragment_select_drug, container, false);
+        parentView = view;
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, MainActivity.drugLoader.getNameArray());
         txtDrugName = (AutoCompleteTextView) view.findViewById(R.id.txtDrugName);
         txtDrugName.setThreshold(1); // will start search after 1 char
@@ -47,6 +49,13 @@ public class SelectDrug extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == R.id.btnConfirmDrugName){
+            //if the next button has been clicked
+        }
     }
 
     public interface OnFragmentInteractionListener {

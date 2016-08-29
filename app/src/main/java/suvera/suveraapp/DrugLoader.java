@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by William Meaton on 8/17/2016.
@@ -18,7 +19,7 @@ public class DrugLoader {
 
     private ArrayList<Drug> drugsList = new ArrayList<Drug>();
     private Context launchContext;
-
+    private HashMap<String, Drug> map;
     public DrugLoader(Context ctx) {
         this.launchContext = ctx;
     }
@@ -64,14 +65,35 @@ public class DrugLoader {
                 }else{
                     type = DrugType.OTHER;
                 }
-                Log.d("New Drug", name);
+//                Log.d("New Drug", name);
                 //add the new drug
-                drugsList.add(new Drug(name, type, url));
+                drugsList.add(new Drug(i, name, type, url));
             }
             Log.d("Drug Count", String.valueOf(drugsList.size()));
         }catch (JSONException e){
             Log.e("JSON", e.getMessage());
         }
+        for(Drug d : drugsList){
+            map.put(d.getName(), d);
+        }
+    }
+
+    public boolean doesDrugExist(String name){
+        return map.containsKey(name);
+    }
+
+    public Drug getDrug(String name){
+        if(map.containsKey(name)) {
+            return map.get(name);
+        }
+        return null;
+    }
+
+    public Drug getDrug(int id){
+        if(id < 0 || id >= drugsList.size()){
+            return null;
+        }
+        return drugsList.get(id);
     }
 
     public ArrayList<Drug> search(String search){

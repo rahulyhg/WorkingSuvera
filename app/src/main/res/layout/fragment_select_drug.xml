@@ -15,7 +15,10 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp" />
+        android:layout_marginRight="40dp"
+        android:editable="false"
+        android:selectAllOnFocus="true"
+        android:singleLine="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -23,7 +26,16 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Let&apos;s add a new medication."
         android:id="@+id/lblTitle"
-        android:layout_alignBottom="@+id/txtDrugName"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="61dp" />
+        android:layout_marginTop="112dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=">"
+        android:id="@+id/btnConfirmDrugName"
+        android:onClick="onClick"
+        android:layout_centerVertical="true"
+        android:layout_alignEnd="@+id/txtDrugName" />
 </RelativeLayout>

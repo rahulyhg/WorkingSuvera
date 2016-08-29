@@ -21,7 +21,7 @@ public class AddDrug extends FragmentActivity  implements SelectDrug.OnFragmentI
         transaction.replace(R.id.fragment_container, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();
-    }
+}
 
     @Override
     public void onFragmentInteraction(Uri uri) {
