@@ -22,18 +22,18 @@ public class MainActivity extends AppCompatActivity {
     Context context;
     PendingIntent pendingIntent;
     String hour_s, hour_m;
-    DrugLoader drugLoader;
+    static DrugLoader drugLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.context = this;
-        drugLoader = new DrugLoader(this);
-        drugLoader.loadDrugs();
+        MainActivity.drugLoader = new DrugLoader(this);
+        MainActivity.drugLoader.loadDrugs();
 
-        //if
-
+        Intent intentT = new Intent(this, AddDrug.class);
+        startActivity(intentT);
 
         //initialise alarm manager
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);

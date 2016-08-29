@@ -3,7 +3,6 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <fragment
         android:id="@+id/fragment_swap"
         android:layout_weight="1"

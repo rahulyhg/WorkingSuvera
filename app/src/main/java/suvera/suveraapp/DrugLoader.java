@@ -84,6 +84,14 @@ public class DrugLoader {
         return result;
     }
 
+    public String[] getNameArray(){
+        String[] names = new String[drugsList.size()];
+        for(int i = 0; i < names.length; i++){
+            names[i] = drugsList.get(i).getName();
+        }
+        return names;
+    }
+
     public ArrayList<Drug> getDrugsList() {
         return drugsList;
     }
