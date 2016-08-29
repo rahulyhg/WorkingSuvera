@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "180442177490",
+    "firebase_url": "https://suveraapp.firebaseio.com",
+    "project_id": "suveraapp",
+    "storage_bucket": "suveraapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:180442177490:android:aca6489bc5d31d10",
+        "android_client_info": {
+          "package_name": "com.suveraapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "180442177490-uf906fevhfoaj547adjc8749kjj6pn3k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.suveraapp",
+            "certificate_hash": "0B1D1A342D0E9D84F08D6BB046428F0ADED20B4D"
+          }
+        },
+        {
+          "client_id": "180442177490-ftobr1897ojo4188t5d225c1r27jhk0h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnTlCb9KBTPlj33uNpN0B1OFSKCIB2uFE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "180442177490-ftobr1897ojo4188t5d225c1r27jhk0h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
