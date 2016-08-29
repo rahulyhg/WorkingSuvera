@@ -1,11 +1,9 @@
-package suvera.suveraapp.onload;
+package com.suveraapp.onload;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +14,10 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Toast;
 
-import suvera.suveraapp.MainActivity;
-import suvera.suveraapp.R;
-import suvera.suveraapp.drug.Drug;
-import suvera.suveraapp.drug.DrugType;
+import com.suveraapp.MainActivity;
+import com.suveraapp.R;
+import com.suveraapp.drug.Drug;
+import com.suveraapp.drug.DrugType;
 
 public class SelectDrug extends Fragment{
     private AutoCompleteTextView txtDrugName;

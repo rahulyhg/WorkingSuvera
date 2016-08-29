@@ -1,4 +1,4 @@
-package suvera.suveraapp.drug;
+package com.suveraapp.drug;
 
 import android.content.Context;
 import android.util.Log;

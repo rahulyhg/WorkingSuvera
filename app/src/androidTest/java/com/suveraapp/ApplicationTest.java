@@ -1,4 +1,4 @@
-package suvera.suveraapp;
+package com.suveraapp;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

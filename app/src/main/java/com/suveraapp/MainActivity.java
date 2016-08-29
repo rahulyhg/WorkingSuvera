@@ -1,4 +1,4 @@
-package suvera.suveraapp;
+package com.suveraapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,8 +10,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import java.util.Calendar;
-import suvera.suveraapp.drug.DrugLoader;
-import suvera.suveraapp.onload.AddDrug;
+import com.suveraapp.drug.DrugLoader;
+import com.suveraapp.onload.AddDrug;
 
 public class MainActivity extends AppCompatActivity {
     AlarmManager alarmManager;

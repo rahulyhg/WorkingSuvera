@@ -1,4 +1,4 @@
-package suvera.suveraapp;
+package com.suveraapp;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

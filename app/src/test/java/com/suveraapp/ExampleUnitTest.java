@@ -1,4 +1,4 @@
-package suvera.suveraapp;
+package com.suveraapp;
 
 import org.junit.Test;
 

@@ -1,7 +1,6 @@
-package suvera.suveraapp.onload;
+package com.suveraapp.onload;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import suvera.suveraapp.MainActivity;
-import suvera.suveraapp.R;
+import com.suveraapp.MainActivity;
+import com.suveraapp.R;
 
 
 public class AddReason extends Fragment {

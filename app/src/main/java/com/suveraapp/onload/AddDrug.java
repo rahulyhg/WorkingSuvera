@@ -1,13 +1,12 @@
-package suvera.suveraapp.onload;
+package com.suveraapp.onload;
 
-import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 
-import suvera.suveraapp.R;
-import suvera.suveraapp.drug.Drug;
+import com.suveraapp.R;
+import com.suveraapp.drug.Drug;
 
 public class AddDrug extends FragmentActivity  implements SelectDrug.SelectDrugListener, AddReason.AddReasonListener {
 
