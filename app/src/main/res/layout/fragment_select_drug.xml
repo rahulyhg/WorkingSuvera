@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="suvera.suveraapp.SelectDrug">
+    tools:context=".onload.SelectDrug">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -16,7 +16,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:editable="false"
         android:selectAllOnFocus="true"
         android:singleLine="true" />
 

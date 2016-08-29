@@ -2,19 +2,17 @@ package suvera.suveraapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.TimePicker;
-
 import java.util.Calendar;
+import suvera.suveraapp.drug.DrugLoader;
+import suvera.suveraapp.onload.AddDrug;
+
 public class MainActivity extends AppCompatActivity {
     AlarmManager alarmManager;
     TimePicker timePicker;
@@ -22,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     Context context;
     PendingIntent pendingIntent;
     String hour_s, hour_m;
-    static DrugLoader drugLoader;
+    public static DrugLoader drugLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

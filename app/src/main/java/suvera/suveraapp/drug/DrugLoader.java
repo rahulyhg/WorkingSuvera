@@ -1,4 +1,4 @@
-package suvera.suveraapp;
+package suvera.suveraapp.drug;
 
 import android.content.Context;
 import android.util.Log;
@@ -17,9 +17,9 @@ import java.util.HashMap;
  */
 public class DrugLoader {
 
-    private ArrayList<Drug> drugsList = new ArrayList<Drug>();
+    private ArrayList<Drug> drugsList = new ArrayList<>();
     private Context launchContext;
-    private HashMap<String, Drug> map;
+    private HashMap<String, Drug> map = new HashMap<>();
     public DrugLoader(Context ctx) {
         this.launchContext = ctx;
     }

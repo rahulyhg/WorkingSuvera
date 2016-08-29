@@ -1,4 +1,4 @@
-package suvera.suveraapp;
+package suvera.suveraapp.drug;
 
 /**
  * Created by williammeaton on 16/08/2016.
