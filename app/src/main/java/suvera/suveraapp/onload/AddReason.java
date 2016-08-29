@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
+import suvera.suveraapp.MainActivity;
 import suvera.suveraapp.R;
 
 
@@ -17,6 +19,7 @@ public class AddReason extends Fragment {
     private AddReasonListener parentListener;
     private int DrugId = -1;
     private Button btnNext;
+    private TextView lblTitle;
     public AddReason() {
         // Required empty public constructor
     }
@@ -27,12 +30,17 @@ public class AddReason extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_reason, container, false);
-        DrugId = savedInstanceState.getInt("DrugName");
+        if(getArguments()!= null){
+            DrugId = getArguments().getInt("DrugID");
+        }
+        lblTitle = (TextView) view.findViewById(R.id.lblAddReasonTitle);
+        String title = "Why do you take " + MainActivity.drugLoader.getDrug(DrugId).getName()+ "?";
+        lblTitle.setText(title);
         btnNext = (Button) view.findViewById(R.id.btnConfirmReason);
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+
             }
         });
         return view;

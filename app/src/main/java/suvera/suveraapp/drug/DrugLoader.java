@@ -114,6 +114,13 @@ public class DrugLoader {
         return names;
     }
 
+    public void addDrug(Drug d){
+        if(d != null) {
+            drugsList.add(d);
+            map.put(d.getName(), d);
+        }
+    }
+
     public ArrayList<Drug> getDrugsList() {
         return drugsList;
     }
