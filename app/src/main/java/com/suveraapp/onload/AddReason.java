@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.suveraapp.MainActivity;
 import com.suveraapp.R;
@@ -19,6 +21,7 @@ public class AddReason extends Fragment {
     private int DrugId = -1;
     private Button btnNext;
     private TextView lblTitle;
+    private EditText txtReason;
     public AddReason() {
         // Required empty public constructor
     }
@@ -33,13 +36,18 @@ public class AddReason extends Fragment {
             DrugId = getArguments().getInt("DrugID");
         }
         lblTitle = (TextView) view.findViewById(R.id.lblAddReasonTitle);
+        txtReason = (EditText) view.findViewById(R.id.txtDrugReason);
         String title = "Why do you take " + MainActivity.drugLoader.getDrug(DrugId).getName()+ "?";
         lblTitle.setText(title);
         btnNext = (Button) view.findViewById(R.id.btnConfirmReason);
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if(txtReason.getText().toString().length() > 1){
+                    parentListener.reasonGiven(txtReason.getText().toString());
+                }else{
+                    Toast.makeText(getContext(), "You must enter a reason.", Toast.LENGTH_LONG).show();
+                }
             }
         });
         return view;
