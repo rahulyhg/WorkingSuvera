@@ -100,7 +100,6 @@ public class SelectDrug extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
-
         getView().setFocusableInTouchMode(true);
         getView().requestFocus();
         getView().setOnKeyListener(new View.OnKeyListener() {
