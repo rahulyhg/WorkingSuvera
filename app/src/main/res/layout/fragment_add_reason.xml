@@ -13,7 +13,9 @@
         android:id="@+id/lblAddReasonTitle"
         android:layout_marginTop="73dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp" />
 
     <EditText
         android:layout_width="match_parent"
