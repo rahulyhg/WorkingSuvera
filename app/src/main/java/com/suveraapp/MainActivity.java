@@ -1,119 +1,106 @@
 package com.suveraapp;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.TimePicker;
-import java.util.Calendar;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import com.suveraapp.drug.DrugLoader;
-import com.suveraapp.onload.AddDrug;
 
-public class MainActivity extends AppCompatActivity {
-    AlarmManager alarmManager;
-    TimePicker timePicker;
-    TextView alarmStatus;
-    Context context;
-    PendingIntent pendingIntent;
-    String hour_s, hour_m;
-    public static DrugLoader drugLoader;
 
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
+        public static DrugLoader drugLoader;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        drugLoader = new DrugLoader(this);
+        drugLoader.loadDrugs();
         setContentView(R.layout.activity_main);
-        this.context = this;
-        MainActivity.drugLoader = new DrugLoader(this);
-        MainActivity.drugLoader.loadDrugs();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        Intent intentT = new Intent(this, AddDrug.class);
-        startActivity(intentT);
-
-        //initialise alarm manager
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-        //initialise time picker
-        timePicker = (TimePicker) findViewById(R.id.timePicker);
-
-        //initialise status
-        alarmStatus = (TextView) findViewById(R.id.updateAlarm);
-
-        //create an instance of calender
-        final Calendar calendar = Calendar.getInstance();
-
-        //create intent to start alarm
-        final Intent intent = new Intent(this.context, AlarmReceiver.class);
-
-        //initialise text buttons
-        TextView start_alarm = (TextView) findViewById(R.id.startAlarm);
-        start_alarm.setOnClickListener(new View.OnClickListener() {
-
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //sets calendar instance with hour and minute we picked on time picker
-                calendar.set(Calendar.HOUR_OF_DAY, timePicker.getCurrentHour());
-                calendar.set(Calendar.MINUTE, timePicker.getCurrentMinute());
-
-                //set calendar instance to hour and minute selected on timepicker
-
-                //get string value of hour and minute
-                int hour = timePicker.getCurrentHour();
-                int min = timePicker.getCurrentMinute();
-
-                hour_s = String.valueOf(hour);
-                hour_m = String.valueOf(min);
-
-                //pending intent that delays intent until specified time
-                pendingIntent = PendingIntent.getBroadcast(MainActivity.this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-
-                //sets alarm manager to run intervalled day
-                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
-
-                //updates status of alarm
-                update_stats("Alarm set to " + updateHour(hour_s) + ":" + updateMin(hour_m));
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
-        TextView end_alarm = (TextView) findViewById(R.id.endAlarm);
-        end_alarm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                alarmManager.cancel(pendingIntent);
-                update_stats("Alarm off");
-            }
-        });
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
-    //makes 1 digit hours to two digit, i.e 1 -> 01
-    private String updateHour(String hour) {
-        String result = hour;
-
-        if (Integer.parseInt(hour) < 10) {
-            result = "0" + hour;
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
-        return result;
     }
 
-    //makes 1 digit minutes to two digit, i.e 5 -> 05
-    private String updateMin(String min) {
-        String result = min;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 
-        if (Integer.parseInt(min) < 10) {
-            result = "0" + hour_m;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
         }
-        return result;
+
+        return super.onOptionsItemSelected(item);
     }
 
-    //updates alarm status
-    private void update_stats(String s) {
-        alarmStatus.setText(s);
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
-
-
