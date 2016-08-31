@@ -33,5 +33,5 @@
         android:id="@+id/btnConfirmInterval"
         android:layout_below="@+id/interval"
         android:layout_alignEnd="@+id/interval"
-        android:layout_marginTop="126dp" />
+        android:layout_marginTop="55dp" />
 </RelativeLayout>

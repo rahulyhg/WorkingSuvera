@@ -1,0 +1,98 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".onload.Specific_days">
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:text="On which days do you need to take it?"
+    android:id="@+id/lblSelectDay"
+    android:layout_alignParentTop="true"
+    android:layout_marginTop="112dp"
+    android:layout_alignStart="@+id/monday"
+    android:layout_alignEnd="@+id/monday" />
+
+    <Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text=">"
+    android:id="@+id/btnConfirmDays"
+    android:layout_marginTop="25dp"
+        android:layout_below="@+id/sunday"
+        android:layout_alignEnd="@+id/sunday" />
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/monday"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_below="@+id/lblSelectDay"
+        android:layout_centerHorizontal="true"
+        android:text="Monday" />
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tuesday"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:checked="false"
+        android:layout_below="@+id/monday"
+        android:layout_centerHorizontal="true"
+        android:text="Tuesday" />
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/wednesday"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:checked="false"
+        android:layout_below="@+id/tuesday"
+        android:text="Wednesday" />
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/thursday"
+        android:layout_below="@+id/wednesday"
+        android:layout_alignStart="@+id/wednesday"
+        android:layout_alignEnd="@+id/wednesday"
+        android:checked="false"
+        android:text="Thursday" />
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/friday"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:checked="false"
+        android:layout_below="@+id/thursday"
+        android:text="Friday" />
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/saturday"
+        android:checked="false"
+        android:layout_below="@+id/friday"
+        android:layout_alignStart="@+id/friday"
+        android:layout_alignEnd="@+id/sunday"
+        android:text="Saturday" />
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sunday"
+        android:layout_below="@+id/saturday"
+        android:layout_alignStart="@+id/friday"
+        android:layout_alignEnd="@+id/friday"
+        android:checked="false"
+        android:text="Sunday" />
+</RelativeLayout>

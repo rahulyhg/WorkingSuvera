@@ -25,7 +25,7 @@ public class SelectInterval extends Fragment {
     private int myInterval;
 
     public SelectInterval() {
-
+        // Required empty public constructor
     }
 
     @Override
@@ -62,13 +62,8 @@ public class SelectInterval extends Fragment {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //confirm that spinner choice is not empty
-                if (myInterval == 0 || myInterval == 1) {
-                    parentListener.intervalSelected(myInterval);
-                } else{
-                    Toast.makeText(getContext(),"Select an intake interval.", Toast.LENGTH_LONG).show();
-                }
+                //pass through users choice as an integer (0 - everyday [default], 1 - specific days)
+                parentListener.intervalSelected(myInterval);
             }
         });
 
@@ -91,6 +86,7 @@ public class SelectInterval extends Fragment {
         super.onDetach();
         parentListener = null;
     }
+
     public interface SelectIntervalListener {
         void intervalSelected(int interval);
     }
