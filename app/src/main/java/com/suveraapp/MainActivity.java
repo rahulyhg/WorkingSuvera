@@ -96,11 +96,13 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
-
+            swapFragment(new ProfileScreen());
         } else if (id == R.id.nav_settings) {
-
+            swapFragment(new SettingsScreen());
         } else if (id == R.id.nav_help) {
-
+            swapFragment(new HelpScreen());
+        } else if (id == R.id.nav_home){
+            swapFragment(new HomeScreen());
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
