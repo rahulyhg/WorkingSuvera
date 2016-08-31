@@ -10,23 +10,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
 
 public class ProfileScreen extends Fragment implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
     private GoogleApiClient mGoogleApiClient;
@@ -51,6 +48,14 @@ public class ProfileScreen extends Fragment implements View.OnClickListener, Goo
             this.view = inflater.inflate(R.layout.fragment_profile_screen, container, false);
             TextView lblProfileName = (TextView) view.findViewById(R.id.lblProfileName);
             lblProfileName.setText("Welcome back, "+Profile.getInstance().getDisplayName());
+            Button btnLogout = (Button) view.findViewById(R.id.btnLogoutUser);
+            btnLogout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Profile.getInstance().reset();
+                    signOut();
+                }
+            });
         }
         // Inflate the layout for this fragment
         return this.view;
@@ -72,6 +77,7 @@ public class ProfileScreen extends Fragment implements View.OnClickListener, Goo
         mGoogleApiClient = new GoogleApiClient.Builder(getContext())
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+        mGoogleApiClient.connect();
         SignInButton signInButton = (SignInButton) view.findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
         signInButton.setScopes(gso.getScopeArray());
@@ -100,6 +106,9 @@ public class ProfileScreen extends Fragment implements View.OnClickListener, Goo
         if(mAuth != null) {
             mAuth.addAuthStateListener(mAuthListener);
         }
+        if(mGoogleApiClient != null){
+            mGoogleApiClient.connect();
+        }
     }
 
     @Override
@@ -108,6 +117,7 @@ public class ProfileScreen extends Fragment implements View.OnClickListener, Goo
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+        mGoogleApiClient.disconnect();
     }
 
     @Override
@@ -137,9 +147,23 @@ public class ProfileScreen extends Fragment implements View.OnClickListener, Goo
                 Profile.getInstance().setProfile(result.getSignInAccount());
             } else {
                 Toast.makeText(getContext(), "Your login failed.", Toast.LENGTH_LONG).show();
-                Profile.getInstance().logout();
+                Profile.getInstance().reset();
             }
         }
+    }
+
+    public void signOut(){
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        if(status.isSuccess()){
+                            Toast.makeText(getContext(), "You've been logged out.", Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(getContext(), "Logout request error.", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
     }
 
     @Override

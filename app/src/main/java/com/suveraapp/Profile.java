@@ -4,7 +4,11 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -72,9 +76,10 @@ public class Profile implements OnCompleteListener<AuthResult>{
         }
     }
 
-    public void logout(){
+    public void reset(){
         instance = new Profile();
         FirebaseAuth.getInstance().signOut();
+
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
