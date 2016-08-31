@@ -7,8 +7,10 @@ import android.os.Bundle;
 
 import com.suveraapp.R;
 import com.suveraapp.drug.Drug;
+import com.suveraapp.schedule.Schedule;
 
-public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugListener, AddReason.AddReasonListener, SelectInterval.SelectIntervalListener, Specific_days.Specific_daysListener {
+public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugListener, AddReason.AddReasonListener,
+        SelectInterval.SelectIntervalListener, Specific_days.Specific_daysListener, AddSchedule.AddScheduleListener {
     private int interval;
     private String reason;
     @Override
@@ -48,12 +50,18 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
         if(interval == 1) {
             swapFragment(new Specific_days());
         }else{
-//            swapFragment();
+            swapFragment(new AddSchedule());
         }
     }
 
     @Override
     public void daysSelected(boolean[] days) {
+        swapFragment(new AddSchedule());
+    }
+
+
+    @Override
+    public void scheduleSelected(Schedule schedule) {
 
     }
 }

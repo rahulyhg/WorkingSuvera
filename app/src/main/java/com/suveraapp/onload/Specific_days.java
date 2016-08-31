@@ -96,11 +96,6 @@ public class Specific_days extends Fragment {
                 if (containsTrue(specDays)) {
                     //pass through the boolean array if so
                     parentListener.daysSelected(specDays);
-                    //visually check the checkboxes are working
-                    Toast.makeText(getContext(), "Checked" +
-                                    specDays[0] + specDays[1] + specDays[2] + specDays[3]
-                                    + specDays[4] + specDays[5] + specDays[6]
-                            , Toast.LENGTH_SHORT).show();
                 } else {
                     //else notify user to select at least one box
                     Toast.makeText(getContext(), "Select at least one day", Toast.LENGTH_LONG).show();

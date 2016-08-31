@@ -35,10 +35,13 @@ public class AddReason extends Fragment {
         if(getArguments()!= null){
             DrugId = getArguments().getInt("DrugID");
         }
+        String [] name = MainActivity.drugLoader.getDrug(DrugId).getName().split(" ") ;
+
         lblTitle = (TextView) view.findViewById(R.id.lblAddReasonTitle);
         txtReason = (EditText) view.findViewById(R.id.txtDrugReason);
-        String title = "Why do you take " + MainActivity.drugLoader.getDrug(DrugId).getName()+ "?";
+        String title = "Why do you take " + name[0] + "?";
         lblTitle.setText(title);
+
         btnNext = (Button) view.findViewById(R.id.btnConfirmReason);
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
