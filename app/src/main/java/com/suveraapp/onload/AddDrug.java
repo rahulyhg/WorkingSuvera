@@ -8,7 +8,7 @@ import android.os.Bundle;
 import com.suveraapp.R;
 import com.suveraapp.drug.Drug;
 
-public class AddDrug extends FragmentActivity  implements SelectDrug.SelectDrugListener, AddReason.AddReasonListener {
+public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugListener, AddReason.AddReasonListener, SelectInterval.SelectIntervalListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +17,7 @@ public class AddDrug extends FragmentActivity  implements SelectDrug.SelectDrugL
         //start on select drug
         swapFragment(new SelectDrug());
     }
+
     public void swapFragment(Fragment newFragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, newFragment);
@@ -36,6 +37,11 @@ public class AddDrug extends FragmentActivity  implements SelectDrug.SelectDrugL
 
     @Override
     public void reasonGiven(String reason) {
+        swapFragment(new SelectInterval());
+    }
+
+    @Override
+    public void intervalSelected(int interval) {
 
     }
 }

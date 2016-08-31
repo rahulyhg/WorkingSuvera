@@ -1,0 +1,37 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".onload.SelectInterval">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="How often do you need to take it for?"
+        android:id="@+id/lblSelectInterval"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="112dp"
+        android:layout_alignEnd="@+id/interval"
+        android:layout_alignStart="@+id/interval" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/interval"
+        android:layout_marginTop="56dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_below="@+id/lblSelectInterval"
+        android:layout_centerHorizontal="true"
+        android:spinnerMode="dropdown" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=">"
+        android:id="@+id/btnConfirmInterval"
+        android:layout_below="@+id/interval"
+        android:layout_alignEnd="@+id/interval"
+        android:layout_marginTop="126dp" />
+</RelativeLayout>
