@@ -9,7 +9,8 @@ import com.suveraapp.R;
 import com.suveraapp.drug.Drug;
 
 public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugListener, AddReason.AddReasonListener, SelectInterval.SelectIntervalListener, Specific_days.Specific_daysListener {
-
+    private int interval;
+    private String reason;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,12 +38,18 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
 
     @Override
     public void reasonGiven(String reason) {
+        this.reason = reason;
         swapFragment(new SelectInterval());
     }
 
     @Override
     public void intervalSelected(int interval) {
-    swapFragment(new Specific_days());
+        this.interval = interval;
+        if(interval == 1) {
+            swapFragment(new Specific_days());
+        }else{
+//            swapFragment();
+        }
     }
 
     @Override
