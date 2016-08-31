@@ -89,6 +89,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onStart(){
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+        if(mGoogleApiClient != null){
+            mGoogleApiClient.connect();
+        }
     }
     @Override
     public void onStop(){
@@ -96,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+        mGoogleApiClient.disconnect();
     }
 
     public void swapFragment(Fragment newFragment) {
@@ -112,14 +116,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .requestEmail()
                 .build();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+        mGoogleApiClient.connect();
         final OptionalPendingResult<GoogleSignInResult> pendingResult = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
         if (pendingResult.isDone()) {
             Profile.getInstance().setProfile(pendingResult.get().getSignInAccount());
-            mGoogleApiClient.stopAutoManage(this);
-            mGoogleApiClient.disconnect();
         } else {
             pendingResult.setResultCallback(this); // set a callback
         }
@@ -184,7 +186,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
         Profile.getInstance().setProfile(googleSignInResult.getSignInAccount());
-        mGoogleApiClient.stopAutoManage(this);
-        mGoogleApiClient.disconnect();
     }
 }
