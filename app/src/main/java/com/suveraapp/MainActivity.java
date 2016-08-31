@@ -32,11 +32,12 @@ import com.suveraapp.onload.AddDrug;
 
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
+
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, ResultCallback<GoogleSignInResult> {
     public static DrugLoader drugLoader;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-
+    private GoogleApiClient mGoogleApiClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,24 +111,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        GoogleApiClient mGoogleApiClient = new GoogleApiClient.Builder(this)
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-        final OptionalPendingResult<GoogleSignInResult> pendingResult =
-                Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+        final OptionalPendingResult<GoogleSignInResult> pendingResult = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
         if (pendingResult.isDone()) {
             Profile.getInstance().setProfile(pendingResult.get().getSignInAccount());
+            mGoogleApiClient.stopAutoManage(this);
+            mGoogleApiClient.disconnect();
         } else {
-            pendingResult.setResultCallback(new ResultCallback<GoogleSignInResult>() {
-                @Override
-                public void onResult(@NonNull GoogleSignInResult result) {
-                    Profile.getInstance().setProfile(pendingResult.get().getSignInAccount());
-                }
-            });
+            pendingResult.setResultCallback(this); // set a callback
         }
     }
-
 
     @Override
     public void onBackPressed() {
@@ -174,7 +170,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_home){
             swapFragment(new HomeScreen());
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -183,5 +178,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Toast.makeText(this, "Failed to connect to Google.", Toast.LENGTH_LONG).show();
+    }
+
+    //called by google API
+    @Override
+    public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
+        Profile.getInstance().setProfile(googleSignInResult.getSignInAccount());
+        mGoogleApiClient.stopAutoManage(this);
+        mGoogleApiClient.disconnect();
     }
 }

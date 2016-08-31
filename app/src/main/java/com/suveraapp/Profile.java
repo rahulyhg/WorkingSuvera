@@ -44,6 +44,10 @@ public class Profile implements OnCompleteListener<AuthResult>{
         return logged;
     }
 
+    public boolean isAuthenticated(){
+        return authenticated;
+    }
+
     public void setLoggedIn(boolean b){
         this.logged = b;
     }
