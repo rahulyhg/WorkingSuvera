@@ -119,22 +119,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
-        OptionalPendingResult<GoogleSignInResult> pendingResult =
+        final OptionalPendingResult<GoogleSignInResult> pendingResult =
                 Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
         if (pendingResult.isDone()) {
             // There's immediate result available.
-            Toast.makeText(getBaseContext(), pendingResult.get().getSignInAccount().getFamilyName() + " Logged in.", Toast.LENGTH_LONG).show();
-//            updateButtonsAndStatusFromSignInResult(pendingResult.get());
+            Profile.getInstance().setProfile(pendingResult.get().getSignInAccount());
         } else {
             // There's no immediate result ready, displays some progress indicator and waits for the
             // async callback.
-//            showProgressIndicator();
+            // showProgressIndicator();
             pendingResult.setResultCallback(new ResultCallback<GoogleSignInResult>() {
                 @Override
                 public void onResult(@NonNull GoogleSignInResult result) {
-                    Toast.makeText(getBaseContext(), result.getSignInAccount().getFamilyName() + " Logged in.", Toast.LENGTH_LONG).show();
-//                    updateButtonsAndStatusFromSignInResult(result);
-//                    hideProgressIndicator();
+                    Profile.getInstance().setProfile(pendingResult.get().getSignInAccount());
                 }
             });
         }

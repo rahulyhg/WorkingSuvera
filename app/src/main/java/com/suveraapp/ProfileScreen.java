@@ -31,8 +31,7 @@ public class ProfileScreen extends Fragment implements View.OnClickListener, Goo
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-
-
+    private View view;
 
     public ProfileScreen() {
         // Required empty public constructor
@@ -43,8 +42,15 @@ public class ProfileScreen extends Fragment implements View.OnClickListener, Goo
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_profile_screen, container, false);
+        this.view = inflater.inflate(R.layout.fragment_profile_screen, container, false);
+        if(!Profile.getInstance().isLoggedIn()) {
+            startSignIn();
+        }
+        // Inflate the layout for this fragment
+        return this.view;
+    }
 
+    public void startSignIn(){
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -63,9 +69,7 @@ public class ProfileScreen extends Fragment implements View.OnClickListener, Goo
         signInButton.setScopes(gso.getScopeArray());
         view.findViewById(R.id.sign_in_button).setOnClickListener(this);
 
-
         mAuth = FirebaseAuth.getInstance();
-
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -81,14 +85,14 @@ public class ProfileScreen extends Fragment implements View.OnClickListener, Goo
                 // ...
             }
         };
-
-        // Inflate the layout for this fragment
-        return view;
     }
+
     @Override
     public void onStart(){
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
+        if(mAuth != null) {
+            mAuth.addAuthStateListener(mAuthListener);
+        }
     }
 
     @Override
@@ -118,40 +122,18 @@ public class ProfileScreen extends Fragment implements View.OnClickListener, Goo
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        //google request
         if (requestCode == 9001) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
-                // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = result.getSignInAccount();
-                firebaseAuthWithGoogle(account);
+                // Google Sign In was successful
+                Profile.getInstance().setProfile(result.getSignInAccount());
             } else {
-                Toast.makeText(getContext(), "Your login failed.", Toast.LENGTH_LONG);
+                Toast.makeText(getContext(), "Your login failed.", Toast.LENGTH_LONG).show();
+                Profile.getInstance().logout();
             }
         }
     }
-
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d("FireBaseGoogle", "firebaseAuthWithGoogle:" + acct.getId());
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d("FireBaseGoogle", "signInWithCredential:onComplete:" + task.isSuccessful());
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
-                        if (!task.isSuccessful()) {
-                            Log.w("FireBaseGoogle", "signInWithCredential", task.getException());
-                            Toast.makeText(getContext(), "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                        // ...
-                    }
-                });
-    }
-
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
