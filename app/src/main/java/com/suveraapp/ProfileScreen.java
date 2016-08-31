@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -42,9 +43,13 @@ public class ProfileScreen extends Fragment implements View.OnClickListener, Goo
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        this.view = inflater.inflate(R.layout.fragment_profile_screen, container, false);
         if(!Profile.getInstance().isLoggedIn()) {
+            this.view = inflater.inflate(R.layout.fragment_profile_screen_logged_out, container, false);
             startSignIn();
+        }else{
+            this.view = inflater.inflate(R.layout.fragment_profile_screen, container, false);
+            TextView lblProfileName = (TextView) view.findViewById(R.id.lblProfileName);
+            lblProfileName.setText("Welcome back, "+Profile.getInstance().getDisplayName());
         }
         // Inflate the layout for this fragment
         return this.view;

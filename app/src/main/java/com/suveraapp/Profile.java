@@ -22,12 +22,14 @@ public class Profile implements OnCompleteListener<AuthResult>{
     private boolean logged;
     private boolean authenticated;
     private String familyName;
+    private String displayName;
     private FirebaseAuth mAuth;
 
     private Profile(){
         logged = false;
         authenticated = false;
         familyName = "";
+        displayName = "";
         mAuth = FirebaseAuth.getInstance();
     }
 
@@ -50,11 +52,19 @@ public class Profile implements OnCompleteListener<AuthResult>{
         return familyName;
     }
 
+    public String getDisplayName() {
+        return displayName;
+    }
+
     public void setProfile(GoogleSignInAccount gsi){
         if(gsi!= null) {
             this.logged = true;
             this.familyName = gsi.getFamilyName();
+            this.displayName = gsi.getDisplayName();
             firebaseAuthWithGoogle(gsi);
+            Log.d("Firebase", "Login success");
+        }else{
+            Log.d("Firebase", "Login failed");
         }
     }
 
@@ -64,7 +74,6 @@ public class Profile implements OnCompleteListener<AuthResult>{
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d("FireBaseGoogle", "firebaseAuthWithGoogle:" + acct.getId());
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential).addOnCompleteListener(this);
     }
@@ -73,8 +82,10 @@ public class Profile implements OnCompleteListener<AuthResult>{
     public void onComplete(@NonNull Task<AuthResult> task) {
         if(task.isSuccessful()){
             authenticated = true;
+            Log.d("Firebase", "Account authenticated");
         }else{
             authenticated = false;
+            Log.d("Firebase", "Account authentication failed");
         }
     }
 }
