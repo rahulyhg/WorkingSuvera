@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +20,7 @@ public class AddReason extends Fragment {
 
     private AddReasonListener parentListener;
     private int DrugId = -1;
-    private Button btnNext;
+    private ImageButton btnNext;
     private TextView lblTitle;
     private EditText txtReason;
     private Reason myReason = new Reason("dummy");
@@ -51,7 +52,7 @@ public class AddReason extends Fragment {
         lblTitle.setText(title);
 
         //find button
-        btnNext = (Button) view.findViewById(R.id.btnConfirmReason);
+        btnNext = (ImageButton) view.findViewById(R.id.btnConfirmReason);
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

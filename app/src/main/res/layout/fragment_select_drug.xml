@@ -8,13 +8,13 @@
         android:layout_height="wrap_content"
         android:hint="eg. Citalopram 10mg"
         android:id="@+id/txtDrugName"
-        android:layout_marginTop="156dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
+        android:layout_marginTop="40dp"
         android:selectAllOnFocus="true"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:layout_below="@+id/lblSelectDrugTitle"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,13 +24,14 @@
         android:id="@+id/lblSelectDrugTitle"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="112dp" />
+        android:layout_marginTop="110dp" />
 
-    <Button
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=">"
         android:id="@+id/btnConfirmDrugName"
         android:layout_centerVertical="true"
-        android:layout_alignEnd="@+id/txtDrugName" />
+        android:layout_marginTop="40dp"
+        android:layout_alignEnd="@+id/txtDrugName"
+        android:background="@drawable/ic_navigate_next"/>
 </RelativeLayout>

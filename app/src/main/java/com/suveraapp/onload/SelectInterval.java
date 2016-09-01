@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -21,7 +22,7 @@ import com.suveraapp.objects.Interval;
  */
 public class SelectInterval extends Fragment {
     private SelectIntervalListener parentListener;
-    private Button btnNext;
+    private ImageButton btnNext;
     private Spinner mySpinner;
     private int myInterval;
     private Interval interval = new Interval(false);
@@ -58,7 +59,7 @@ public class SelectInterval extends Fragment {
         });
 
         //find button
-        btnNext = (Button) view.findViewById(R.id.btnConfirmInterval);
+        btnNext = (ImageButton) view.findViewById(R.id.btnConfirmInterval);
         //listen for button action
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override

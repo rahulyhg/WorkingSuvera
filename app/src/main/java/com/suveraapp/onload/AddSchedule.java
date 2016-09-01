@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -23,7 +24,7 @@ import java.util.Calendar;
  */
 public class AddSchedule extends Fragment {
     private AddScheduleListener parentListener;
-    private Button btnNext;
+    private ImageButton btnNext;
     private TimePicker timePicker;
     private NumberPicker numberPicker;
     private Schedule schedule = new Schedule(0,0);
@@ -50,7 +51,7 @@ public class AddSchedule extends Fragment {
         timePicker = (TimePicker) view.findViewById(R.id.timePicker);
 
         //find button
-        btnNext = (Button) view.findViewById(R.id.button);
+        btnNext = (ImageButton) view.findViewById(R.id.button);
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override

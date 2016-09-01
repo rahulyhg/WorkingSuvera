@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.suveraapp.R;
@@ -20,7 +21,7 @@ import com.suveraapp.objects.Days;
 public class SelectSpecDays extends Fragment {
 
     private Specific_daysListener parentListener;
-    private Button btnNext;
+    private ImageButton btnNext;
     private CheckBox mon, tue, wed, thu, fri, sat, sun;
     private boolean[] specDays = new boolean[7];
     private boolean[] dummy;
@@ -46,7 +47,7 @@ public class SelectSpecDays extends Fragment {
         sun = (CheckBox) view.findViewById(R.id.sunday);
 
         //find button
-        btnNext = (Button) view.findViewById(R.id.btnConfirmDays);
+        btnNext = (ImageButton) view.findViewById(R.id.btnConfirmDays);
 
         //listen for user input
         btnNext.setOnClickListener(new View.OnClickListener() {

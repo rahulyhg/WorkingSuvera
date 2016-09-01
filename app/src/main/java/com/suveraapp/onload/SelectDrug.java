@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.suveraapp.MainActivity;
@@ -23,7 +24,7 @@ import com.suveraapp.drug.DrugType;
 public class SelectDrug extends Fragment {
     private AutoCompleteTextView txtDrugName;
     private View parentView;
-    private Button btnNext;
+    private ImageButton btnNext;
     private SelectDrugListener parentListener;
 
 
@@ -46,7 +47,7 @@ public class SelectDrug extends Fragment {
         txtDrugName = (AutoCompleteTextView) view.findViewById(R.id.txtDrugName);
         txtDrugName.setThreshold(1); // will start search after 1 char
         txtDrugName.setAdapter(adapter); // setup the adapter
-        btnNext = (Button) view.findViewById(R.id.btnConfirmDrugName); // get the button
+        btnNext = (ImageButton) view.findViewById(R.id.btnConfirmDrugName); // get the button
         btnNext.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
