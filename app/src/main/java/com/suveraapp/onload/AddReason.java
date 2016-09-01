@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.suveraapp.MainActivity;
 import com.suveraapp.R;
-
+import com.suveraapp.objects.Reason;
 
 public class AddReason extends Fragment {
 
@@ -22,6 +22,8 @@ public class AddReason extends Fragment {
     private Button btnNext;
     private TextView lblTitle;
     private EditText txtReason;
+    private Reason myReason = new Reason("dummy");
+
     public AddReason() {
         // Required empty public constructor
     }
@@ -35,21 +37,33 @@ public class AddReason extends Fragment {
         if(getArguments()!= null){
             DrugId = getArguments().getInt("DrugID");
         }
-        String [] name = MainActivity.drugLoader.getDrug(DrugId).getName().split(" ") ;
 
+        //splitting the drug name into an array of strings
+        String [] name = MainActivity.drugLoader.getDrug(DrugId).getName().split(" ") ;
+        String title = "Why do you take " + name[0] + "?"; //taking the first string of each element in array
+                                                           //as this represents the drug
+
+        //find title and editable text
         lblTitle = (TextView) view.findViewById(R.id.lblAddReasonTitle);
         txtReason = (EditText) view.findViewById(R.id.txtDrugReason);
-        String title = "Why do you take " + name[0] + "?";
+
+        //set text in frag screen
         lblTitle.setText(title);
 
+        //find button
         btnNext = (Button) view.findViewById(R.id.btnConfirmReason);
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(txtReason.getText().toString().length() > 1){
-                    parentListener.reasonGiven(txtReason.getText().toString());
+
+                //validate that the reason is longer than 2 letters
+                if(txtReason.getText().toString().length() > 2){
+                    //set Reason object to the reason entered
+                    myReason.setReason(txtReason.getText().toString());
+                    //pass through to parent fragactivity
+                    parentListener.reasonGiven(myReason);
                 }else{
-                    Toast.makeText(getContext(), "You must enter a reason.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Reason must be longer than 2 letters.", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -73,6 +87,6 @@ public class AddReason extends Fragment {
     }
 
     public interface AddReasonListener {
-        void reasonGiven(String reason);
+        void reasonGiven(Reason reason);
     }
 }

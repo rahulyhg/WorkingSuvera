@@ -14,7 +14,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.suveraapp.R;
-import com.suveraapp.schedule.Schedule;
+import com.suveraapp.objects.Schedule;
 
 import java.util.Calendar;
 
@@ -26,7 +26,7 @@ public class AddSchedule extends Fragment {
     private Button btnNext;
     private TimePicker timePicker;
     private NumberPicker numberPicker;
-    private Schedule schedule;
+    private Schedule schedule = new Schedule(0,0);
     private int hour, min;
 
     public AddSchedule() {
@@ -64,12 +64,14 @@ public class AddSchedule extends Fragment {
                     calendar.set(Calendar.MINUTE, timePicker.getCurrentMinute());
                 }
 
-                schedule = new Schedule(numberPicker.getValue(), calendar.getTimeInMillis());
+                //update medicine amount and time in schedule object
+                schedule.setAmount(numberPicker.getValue());
+                schedule.setTime(calendar.getTimeInMillis());
 
                 //pass through the schedule object if a medicine amount more than 0 is selected
                 parentListener.scheduleSelected(schedule);
 
-                Toast.makeText(getContext(), "Amount" + numberPicker.getValue() + calendar.getTimeInMillis(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Success: " + schedule.getAmount() + " " + schedule.getTime(), Toast.LENGTH_LONG).show();
             }
         });
         return view;
