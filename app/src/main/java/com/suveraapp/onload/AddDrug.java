@@ -7,10 +7,18 @@ import android.os.Bundle;
 
 import com.suveraapp.R;
 import com.suveraapp.drug.Drug;
+import com.suveraapp.objects.Days;
+import com.suveraapp.objects.Interval;
+import com.suveraapp.objects.Reason;
+import com.suveraapp.objects.Schedule;
 
-public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugListener, AddReason.AddReasonListener, SelectInterval.SelectIntervalListener, Specific_days.Specific_daysListener {
-    private int interval;
-    private String reason;
+public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugListener, AddReason.AddReasonListener,
+        SelectInterval.SelectIntervalListener, SelectSpecDays.Specific_daysListener, AddSchedule.AddScheduleListener {
+
+    private Days days;
+    private Interval interval;
+    private Reason reason;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,23 +45,30 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
     }
 
     @Override
-    public void reasonGiven(String reason) {
+    public void reasonGiven(Reason reason) {
         this.reason = reason;
         swapFragment(new SelectInterval());
     }
 
     @Override
-    public void intervalSelected(int interval) {
+    public void intervalSelected(Interval interval) {
         this.interval = interval;
-        if(interval == 1) {
-            swapFragment(new Specific_days());
+        if(interval.isInterval()) {
+            swapFragment(new SelectSpecDays());
         }else{
-//            swapFragment();
+            swapFragment(new AddSchedule());
         }
     }
 
     @Override
-    public void daysSelected(boolean[] days) {
+    public void daysSelected(Days days) {
+        this.days = days;
+        swapFragment(new AddSchedule());
+    }
+
+
+    @Override
+    public void scheduleSelected(Schedule schedule) {
 
     }
 }

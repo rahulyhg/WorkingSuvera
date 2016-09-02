@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.suveraapp.MainActivity;
@@ -20,14 +21,14 @@ import com.suveraapp.R;
 import com.suveraapp.drug.Drug;
 import com.suveraapp.drug.DrugType;
 
-public class SelectDrug extends Fragment{
+public class SelectDrug extends Fragment {
     private AutoCompleteTextView txtDrugName;
     private View parentView;
-    private Button btnNext;
+    private ImageButton btnNext;
     private SelectDrugListener parentListener;
 
 
-    public interface SelectDrugListener{
+    public interface SelectDrugListener {
         public void drugSelected(Drug selection);
     }
 
@@ -46,19 +47,19 @@ public class SelectDrug extends Fragment{
         txtDrugName = (AutoCompleteTextView) view.findViewById(R.id.txtDrugName);
         txtDrugName.setThreshold(1); // will start search after 1 char
         txtDrugName.setAdapter(adapter); // setup the adapter
-        btnNext = (Button) view.findViewById(R.id.btnConfirmDrugName); // get the button
+        btnNext = (ImageButton) view.findViewById(R.id.btnConfirmDrugName); // get the button
         btnNext.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 //make sure they've typed something
-                if(txtDrugName.getText().toString().length() > 1) {
+                if (txtDrugName.getText().toString().length() > 1) {
                     //check the drug exists and send it back up to the parent activity
                     if (MainActivity.drugLoader.doesDrugExist(txtDrugName.getText().toString())) {
                         submitDrug(MainActivity.drugLoader.getDrug(txtDrugName.getText().toString()));
                     } else {
                         checkCustomDrugName();
                     }
-                }else{
+                } else {
                     Toast.makeText(getContext(), "Please enter a name.", Toast.LENGTH_LONG).show();
                 }
             }
@@ -66,16 +67,16 @@ public class SelectDrug extends Fragment{
         return view;
     }
 
-    public void submitDrug(Drug d){
+    public void submitDrug(Drug d) {
         parentListener.drugSelected(d);
     }
 
-    public void checkCustomDrugName(){
+    public void checkCustomDrugName() {
         //create a listener for the yes/no
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                switch (which){
+                switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
                         Drug temp = new Drug(MainActivity.drugLoader.getDrugsList().size(), txtDrugName.getText().toString(), DrugType.OTHER, "null");
                         MainActivity.drugLoader.addDrug(temp);
@@ -92,7 +93,7 @@ public class SelectDrug extends Fragment{
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         //build a alert message
         builder.setTitle("Custom Drug");
-        builder.setMessage("This drug isn't in our database, do you still want to use it?\n\nUsage, storage and saftey information will be unavailable.").setPositiveButton("Yes", dialogClickListener)
+        builder.setMessage("This drug isn't in our database, do you still want to use it?\n\nUsage, storage and safety information will be unavailable.").setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("No", dialogClickListener).show();
 
     }

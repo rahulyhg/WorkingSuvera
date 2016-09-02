@@ -10,19 +10,22 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.suveraapp.R;
+import com.suveraapp.objects.Interval;
 
 /**
  * Created by Hibatop on 30/08/2016.
  */
 public class SelectInterval extends Fragment {
     private SelectIntervalListener parentListener;
-    private Button btnNext;
+    private ImageButton btnNext;
     private Spinner mySpinner;
     private int myInterval;
+    private Interval interval = new Interval(false);
 
     public SelectInterval() {
         // Required empty public constructor
@@ -47,7 +50,6 @@ public class SelectInterval extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 myInterval = i;
-
             }
 
             @Override
@@ -57,13 +59,23 @@ public class SelectInterval extends Fragment {
         });
 
         //find button
-        btnNext = (Button) view.findViewById(R.id.btnConfirmInterval);
+        btnNext = (ImageButton) view.findViewById(R.id.btnConfirmInterval);
         //listen for button action
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //pass through users choice as an integer (0 - everyday [default], 1 - specific days)
-                parentListener.intervalSelected(myInterval);
+
+                //sets the interval object to true, if "Specific days" is selected and
+                //false if "Everyday" is selected
+                if(myInterval == 1){
+                    interval.setInterval(true);
+                } else {
+                    interval.setInterval(false);
+                }
+
+                //pass through users choice as an interval object
+                //false - everyday [default], true - specific days)
+                parentListener.intervalSelected(interval);
             }
         });
 
@@ -88,7 +100,7 @@ public class SelectInterval extends Fragment {
     }
 
     public interface SelectIntervalListener {
-        void intervalSelected(int interval);
+        void intervalSelected(Interval interval);
     }
 
 }

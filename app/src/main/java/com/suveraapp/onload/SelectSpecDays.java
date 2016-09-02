@@ -9,23 +9,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.suveraapp.R;
+import com.suveraapp.objects.Days;
 
 /**
  * Created by Hibatop on 31/08/2016.
  */
-public class Specific_days extends Fragment {
+public class SelectSpecDays extends Fragment {
+
     private Specific_daysListener parentListener;
-    private Button btnNext;
+    private ImageButton btnNext;
     private CheckBox mon, tue, wed, thu, fri, sat, sun;
     private boolean[] specDays = new boolean[7];
+    private boolean[] dummy;
+    private Days days = new Days(dummy);
 
-    public Specific_days() {
+    public SelectSpecDays() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,7 +47,7 @@ public class Specific_days extends Fragment {
         sun = (CheckBox) view.findViewById(R.id.sunday);
 
         //find button
-        btnNext = (Button) view.findViewById(R.id.btnConfirmDays);
+        btnNext = (ImageButton) view.findViewById(R.id.btnConfirmDays);
 
         //listen for user input
         btnNext.setOnClickListener(new View.OnClickListener() {
@@ -92,20 +96,16 @@ public class Specific_days extends Fragment {
                     specDays[6] = false;
                 }
 
-                //check if any of the boxes have been selected
+                //check if any of the boxes have been selected to validate a day has been selected
                 if (containsTrue(specDays)) {
-                    //pass through the boolean array if so
-                    parentListener.daysSelected(specDays);
-                    //visually check the checkboxes are working
-                    Toast.makeText(getContext(), "Checked" +
-                                    specDays[0] + specDays[1] + specDays[2] + specDays[3]
-                                    + specDays[4] + specDays[5] + specDays[6]
-                            , Toast.LENGTH_SHORT).show();
+                    //sets the boolean array containing selected days to the object representing this
+                    days.setDays(specDays);
+                    //pass through the object to the parent fragactivity
+                    parentListener.daysSelected(days);
                 } else {
                     //else notify user to select at least one box
                     Toast.makeText(getContext(), "Select at least one day", Toast.LENGTH_LONG).show();
                 }
-
 
             }
         });
@@ -131,6 +131,11 @@ public class Specific_days extends Fragment {
         parentListener = null;
     }
 
+    public interface Specific_daysListener {
+        void daysSelected(Days days);
+    }
+
+    //checks if given boolean array contains a true value
     public boolean containsTrue(boolean[] array) {
 
         for (boolean val : array) {
@@ -142,7 +147,4 @@ public class Specific_days extends Fragment {
     }
 
 
-    public interface Specific_daysListener {
-        void daysSelected(boolean[] days);
-    }
 }

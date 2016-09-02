@@ -11,28 +11,29 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Why do you take this drug?"
         android:id="@+id/lblAddReasonTitle"
-        android:layout_marginTop="73dp"
+        android:layout_marginTop="110dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:paddingLeft="14dp"
-        android:paddingRight="14dp" />
+         />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtDrugReason"
-        android:layout_centerHorizontal="true"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
+        android:layout_marginTop="40dp"
         android:hint="eg. My back hurts"
         android:selectAllOnFocus="true"
-        android:layout_marginTop="156dp" />
+        android:layout_below="@+id/lblAddReasonTitle"
+        android:layout_centerHorizontal="true" />
 
-    <Button
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=">"
         android:id="@+id/btnConfirmReason"
         android:layout_centerVertical="true"
-        android:layout_alignEnd="@+id/txtDrugReason" />
+        android:layout_alignEnd="@+id/txtDrugReason"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/ic_navigate_next"/>
 </RelativeLayout>
