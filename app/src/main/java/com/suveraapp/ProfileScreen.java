@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class ProfileScreen extends Fragment implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
     private GoogleApiClient mGoogleApiClient;
+    private GoogleSignInOptions gso;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -40,6 +41,18 @@ public class ProfileScreen extends Fragment implements View.OnClickListener, Goo
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        // Build a GoogleApiClient with access to the Google Sign-In API and the
+        // options specified by gso.
+        mGoogleApiClient = new GoogleApiClient.Builder(getContext())
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
 
         if(!Profile.getInstance().isLoggedIn()) {
             this.view = inflater.inflate(R.layout.fragment_profile_screen_logged_out, container, false);
@@ -68,15 +81,6 @@ public class ProfileScreen extends Fragment implements View.OnClickListener, Goo
 
     public void startSignIn(){
         // Configure Google Sign In
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-        // Build a GoogleApiClient with access to the Google Sign-In API and the
-        // options specified by gso.
-        mGoogleApiClient = new GoogleApiClient.Builder(getContext())
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
         mGoogleApiClient.connect();
         SignInButton signInButton = (SignInButton) view.findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
@@ -153,6 +157,7 @@ public class ProfileScreen extends Fragment implements View.OnClickListener, Goo
     }
 
     public void signOut(){
+        //fails because it's not setup when logged in
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
