@@ -8,11 +8,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.suveraapp.R;
 import com.suveraapp.objects.Schedule;
@@ -27,7 +25,8 @@ public class AddSchedule extends Fragment {
     private ImageButton btnNext;
     private TimePicker timePicker;
     private NumberPicker numberPicker;
-    private Schedule schedule = new Schedule(0,0);
+    private Schedule schedule = new Schedule(0, 0);
+
     private int hour, min;
 
     public AddSchedule() {
@@ -72,7 +71,6 @@ public class AddSchedule extends Fragment {
                 //pass through the schedule object if a medicine amount more than 0 is selected
                 parentListener.scheduleSelected(schedule);
 
-                Toast.makeText(getContext(), "Success: " + schedule.getAmount() + " " + schedule.getTime(), Toast.LENGTH_LONG).show();
             }
         });
         return view;

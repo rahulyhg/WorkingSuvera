@@ -2,18 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.suveraapp.onload.SelectTime">
+    tools:context=".onload.Overview">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="What's your schedule for it in a given day?"
-        android:id="@+id/lblSelectTime"
-        android:layout_marginTop="40dp"
-        android:layout_below="@+id/spinner"
-        android:layout_alignStart="@+id/listView"
-        android:layout_alignEnd="@+id/spinner" />
+        android:text="Medication reminder overview"
+        android:id="@+id/lblOverview"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="110dp"
+        android:layout_alignParentTop="true"
+         />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -34,24 +34,15 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:id="@+id/listView"
-        android:layout_below="@+id/lblSelectTime"
-        android:layout_above="@+id/fab"
-        android:layout_alignEnd="@+id/fab"
-        android:layout_alignStart="@+id/spinner" />
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="40dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:spinnerMode="dropdown"
-        android:layout_below="@+id/main_fragment_container"
+        android:id="@+id/listView"
         android:layout_centerHorizontal="true"
-        android:visibility="invisible" />
+        android:layout_below="@+id/lblOverview"
+        android:layout_above="@+id/fab"
+
+         />
 
 
 </RelativeLayout>

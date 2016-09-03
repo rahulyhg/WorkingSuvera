@@ -1,9 +1,12 @@
 package com.suveraapp.objects;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Hibatop on 31/08/2016.
  */
-public class Schedule {
+public class Schedule implements Parcelable {
 
     private int amount; //amount of medication needed to take
     private long time; // time for alarm stored in milliseconds
@@ -12,6 +15,22 @@ public class Schedule {
         this.amount = amount;
         this.time = time;
     }
+
+    private Schedule(Parcel in){
+        amount = in.readInt();
+        time = in.readLong();
+    }
+
+    public static final Parcelable.Creator<Schedule> CREATOR = new Parcelable.Creator<Schedule>(){
+        public Schedule createFromParcel(Parcel in){
+            return new Schedule(in);
+        }
+
+        @Override
+        public Schedule[] newArray(int i) {
+            return new Schedule[0];
+        }
+    };
 
     public int getAmount() {
         return amount;
@@ -29,4 +48,13 @@ public class Schedule {
         this.time = time;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
+    }
 }
