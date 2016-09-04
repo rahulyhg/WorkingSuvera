@@ -25,7 +25,7 @@ public class AddSchedule extends Fragment {
     private ImageButton btnNext;
     private TimePicker timePicker;
     private NumberPicker numberPicker;
-    private Schedule schedule = new Schedule(0, 0);
+    private Schedule schedule;
 
     private int hour, min;
 
@@ -41,7 +41,7 @@ public class AddSchedule extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_schedule, container, false);
 
         final Calendar calendar = Calendar.getInstance();
-
+        schedule = new Schedule(0,0); //create new schedule object
         //find NumberPicker
         numberPicker = (NumberPicker) view.findViewById(R.id.numberPicker);
         numberPicker.setMaxValue(5);
@@ -95,6 +95,12 @@ public class AddSchedule extends Fragment {
 
     public interface AddScheduleListener {
         void scheduleSelected(Schedule schedule);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        schedule = new Schedule(0, 0);
     }
 
 }

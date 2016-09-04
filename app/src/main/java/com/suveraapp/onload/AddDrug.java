@@ -21,9 +21,7 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
     private Days days;
     private Interval interval;
     private Reason reason;
-    private Schedule schedule;
     private ArrayList<Schedule> mySchedule = new ArrayList<>();
-
 
 
     private Bundle bundle;
@@ -63,6 +61,9 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
     @Override
     public void intervalSelected(Interval interval) {
         this.interval = interval;
+
+        //checks if the interval is either false (everyday)
+        //or true (specific days)
         if (interval.isInterval()) {
             swapFragment(new SelectSpecDays());
         } else {
@@ -78,22 +79,24 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
 
     @Override
     public void scheduleSelected(Schedule schedule) {
-       /*
-        if(mySchedule.size()==3){
-            Schedule temp1 = mySchedule.get(1);
-            Schedule temp2 = mySchedule.get(2);
+
+        //checks if the arraylist is already contains 3 values
+        if (mySchedule.size() == 3) {
+            //Schedule temp1 = mySchedule.get(1);
+            //Schedule temp2 = mySchedule.get(1);
 
             //pops top off array list and
             //moves everything up if 3 alarm schedules
             //already exist
 
-            mySchedule.set(0,temp1);
-            mySchedule.set(1,temp2);
-            mySchedule.set(2,schedule);
-        }else{*/
+            mySchedule.set(0, mySchedule.get(1));
+            mySchedule.set(1, mySchedule.get(2));
+            mySchedule.set(2, schedule);
+        } else {
             mySchedule.add(schedule);
-        //}
+        }
 
+        //bundle to pass the arraylist to the overview class
         bundle.putParcelableArrayList("key", (ArrayList<? extends Parcelable>) mySchedule);
         Overview overview = new Overview();
         overview.setArguments(bundle);
@@ -103,12 +106,5 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
     @Override
     public void overviewSubmit(AddDrug drug) {
 
-    }
-    public Bundle getBundle() {
-        return bundle;
-    }
-
-    public void setBundle(Bundle bundle) {
-        this.bundle = bundle;
     }
 }

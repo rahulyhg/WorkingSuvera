@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Medication reminder overview"
+        android:text="Drug schedule overview"
         android:id="@+id/lblOverview"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="110dp"
@@ -16,7 +16,7 @@
          />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/OverviewFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@android:drawable/ic_input_add"
@@ -24,25 +24,41 @@
         android:layout_marginRight="@dimen/fab_margin"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="38dp"
-        android:layout_marginBottom="45dp" />
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="25dp" />
+
     <RelativeLayout
         android:id="@+id/main_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <ListView
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:id="@+id/listView"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/lblOverview"
-        android:layout_above="@+id/fab"
+        android:layout_above="@+id/OverviewFAB"
+        >
 
-         />
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView"
+            android:textAlignment="center"
+            android:focusable="true"
+            android:layout_below="@+id/lblOverview"
+            android:layout_above="@+id/OverviewFAB"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            />
+    </android.support.v7.widget.CardView>
 
 
 </RelativeLayout>

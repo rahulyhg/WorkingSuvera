@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.suveraapp.MainActivity;
 import com.suveraapp.R;
+import com.suveraapp.objects.Interval;
 import com.suveraapp.objects.Reason;
 
 public class AddReason extends Fragment {
@@ -22,7 +23,17 @@ public class AddReason extends Fragment {
     private ImageButton btnNext;
     private TextView lblTitle;
     private EditText txtReason;
-    private Reason myReason = new Reason("dummy");
+    private Reason myReason;
+    private String title;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
 
     public AddReason() {
         // Required empty public constructor
@@ -40,7 +51,7 @@ public class AddReason extends Fragment {
 
         //splitting the drug name into an array of strings
         String [] name = MainActivity.drugLoader.getDrug(DrugId).getName().split(" ") ;
-        String title = "Why do you take " + name[0] + "?"; //taking the first string of each element in array
+        title = "Why do you take " + name[0] + "?"; //taking the first string of each element in array
                                                            //as this represents the drug
 
         //find title and editable text
@@ -49,6 +60,8 @@ public class AddReason extends Fragment {
 
         //set text in frag screen
         lblTitle.setText(title);
+
+        myReason = new Reason("");
 
         //find button
         btnNext = (ImageButton) view.findViewById(R.id.btnConfirmReason);

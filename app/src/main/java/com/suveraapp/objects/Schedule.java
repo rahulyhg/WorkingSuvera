@@ -8,7 +8,7 @@ import android.os.Parcelable;
  */
 public class Schedule implements Parcelable {
 
-    private int amount; //amount of medication needed to take
+    private long amount; //amount of medication needed to take
     private long time; // time for alarm stored in milliseconds
 
     public Schedule(int amount, long time){
@@ -32,7 +32,7 @@ public class Schedule implements Parcelable {
         }
     };
 
-    public int getAmount() {
+    public long getAmount() {
         return amount;
     }
 
