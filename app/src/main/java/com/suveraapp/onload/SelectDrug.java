@@ -28,7 +28,7 @@ public class SelectDrug extends Fragment {
 
 
     public interface SelectDrugListener {
-        public void drugSelected(Drug selection);
+        void drugSelected(Drug selection);
     }
 
     public SelectDrug() {
@@ -41,8 +41,9 @@ public class SelectDrug extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_select_drug, container, false);
         //save the view for later use
         parentView = view;
+
         //create an adapter and fill it with the loaded drug names
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, MainActivity.drugLoader.getNameArray());
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, MainActivity.drugLoader.getNameArray());
         txtDrugName = (AutoCompleteTextView) view.findViewById(R.id.txtDrugName);
         txtDrugName.setThreshold(1); // will start search after 1 char
         txtDrugName.setAdapter(adapter); // setup the adapter
@@ -100,20 +101,21 @@ public class SelectDrug extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        getView().setFocusableInTouchMode(true);
-        getView().requestFocus();
-        getView().setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
-                    // handle back button's click listener
-                    getActivity().finish();
-                    return true;
+        if (getView() != null) {
+            getView().setFocusableInTouchMode(true);
+            getView().requestFocus();
+            getView().setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                        // handle back button's click listener
+                        getActivity().finish();
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
-
+            });
+        }
     }
 
     @Override

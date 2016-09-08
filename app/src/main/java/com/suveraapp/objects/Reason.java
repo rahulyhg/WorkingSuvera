@@ -1,8 +1,5 @@
 package com.suveraapp.objects;
 
-/**
- * Created by Hibatop on 01/09/2016.
- */
 public class Reason {
 
     private String reason; //reason for taking the drug
@@ -15,7 +12,7 @@ public class Reason {
         return reason;
     }
 
-    public Reason(String reason){
+    public Reason(String reason) {
         this.reason = reason;
     }
 }

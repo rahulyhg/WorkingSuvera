@@ -13,4 +13,23 @@
     </string-array>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="overview">Drug schedule overview</string>
+    <string name="hintDrug">eg. Citalopram 10mg</string>
+    <string name="newMed">Let\'s add a new medication.</string>
+    <string name="often">How often do you need it?</string>
+    <string name="hintNext">Next stage</string>
+    <string name="whyDrug">Why do you take this drug?</string>
+    <string name="hintReason">eg. My back hurts</string>
+    <string name="days">Which days do you need it?</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="dosage">Dosage:</string>
+    <string name="sched">What\'s your schedule for it in a given day?</string>
+    <string name="time">Time:</string>
+    <string name="hintDosage">Enter dosage amount</string>
 </resources>

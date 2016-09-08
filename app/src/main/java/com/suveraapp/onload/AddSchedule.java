@@ -8,9 +8,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.suveraapp.R;
 import com.suveraapp.objects.Schedule;
@@ -23,10 +25,9 @@ import java.util.Calendar;
 public class AddSchedule extends Fragment {
     private AddScheduleListener parentListener;
     private ImageButton btnNext;
-    private TimePicker timePicker;
-    private NumberPicker numberPicker;
     private Schedule schedule;
-
+    private TimePicker timePicker;
+    private EditText editText;
     private int hour, min;
 
     public AddSchedule() {
@@ -41,36 +42,45 @@ public class AddSchedule extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_schedule, container, false);
 
         final Calendar calendar = Calendar.getInstance();
-        schedule = new Schedule(0,0); //create new schedule object
-        //find NumberPicker
-        numberPicker = (NumberPicker) view.findViewById(R.id.numberPicker);
-        numberPicker.setMaxValue(5);
-        numberPicker.setMinValue(1);
+        schedule = new Schedule(0, 0); //create new schedule object
+        // find NumberPicker
+        // numberPicker = (NumberPicker) view.findViewById(R.id.numberPicker);
+        // numberPicker.setMaxValue(5);
+        //  numberPicker.setMinValue(1);
+
+
         //find TimePicker
         timePicker = (TimePicker) view.findViewById(R.id.timePicker);
 
+        //find edittext
+        editText = (EditText) view.findViewById(R.id.editText);
         //find button
         btnNext = (ImageButton) view.findViewById(R.id.button);
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //sets calendar time to selected time
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    calendar.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
-                    calendar.set(Calendar.MINUTE, timePicker.getMinute());
+                //validates user dosage entry
+                if ((Integer.valueOf(editText.getText().toString()) > 0) && (Integer.valueOf(editText.getText().toString()) <= 5)) {
+
+                    //sets calendar time to selected time
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        calendar.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
+                        calendar.set(Calendar.MINUTE, timePicker.getMinute());
+                    } else {
+                        calendar.set(Calendar.HOUR_OF_DAY, timePicker.getCurrentHour());
+                        calendar.set(Calendar.MINUTE, timePicker.getCurrentMinute());
+                    }
+
+                    //update medicine amount and time in schedule object
+                    schedule.setAmount(Long.valueOf(editText.getText().toString()));
+                    schedule.setTime(calendar.getTimeInMillis());
+
+                    //pass through the schedule object if a medicine amount more than 0 is selected
+                    parentListener.scheduleSelected(schedule);
                 } else {
-                    calendar.set(Calendar.HOUR_OF_DAY, timePicker.getCurrentHour());
-                    calendar.set(Calendar.MINUTE, timePicker.getCurrentMinute());
+                    Toast.makeText(getContext(), "Please enter a valid dosage amount (between 1 and 5)", Toast.LENGTH_SHORT).show();
                 }
-
-                //update medicine amount and time in schedule object
-                schedule.setAmount(numberPicker.getValue());
-                schedule.setTime(calendar.getTimeInMillis());
-
-                //pass through the schedule object if a medicine amount more than 0 is selected
-                parentListener.scheduleSelected(schedule);
-
             }
         });
         return view;
@@ -98,7 +108,7 @@ public class AddSchedule extends Fragment {
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         schedule = new Schedule(0, 0);
     }

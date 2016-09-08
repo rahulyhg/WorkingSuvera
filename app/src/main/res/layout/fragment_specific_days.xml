@@ -8,7 +8,7 @@ tools:context=".onload.SelectSpecDays">
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textAppearance="?android:attr/textAppearanceLarge"
-    android:text="Which days do you need it?"
+    android:text="@string/days"
     android:id="@+id/lblSelectDay"
     android:layout_alignParentTop="true"
     android:layout_centerHorizontal="true"
@@ -24,7 +24,7 @@ tools:context=".onload.SelectSpecDays">
         android:layout_marginRight="40dp"
         android:layout_below="@+id/lblSelectDay"
         android:layout_centerHorizontal="true"
-        android:text="Monday" />
+        android:text="@string/monday" />
 
     <CheckBox
         android:layout_width="match_parent"
@@ -36,7 +36,7 @@ tools:context=".onload.SelectSpecDays">
         android:checked="false"
         android:layout_below="@+id/monday"
         android:layout_centerHorizontal="true"
-        android:text="Tuesday" />
+        android:text="@string/tuesday" />
 
     <CheckBox
         android:layout_width="match_parent"
@@ -47,7 +47,7 @@ tools:context=".onload.SelectSpecDays">
         android:layout_marginRight="40dp"
         android:checked="false"
         android:layout_below="@+id/tuesday"
-        android:text="Wednesday" />
+        android:text="@string/wednesday" />
 
     <CheckBox
         android:layout_width="match_parent"
@@ -58,7 +58,7 @@ tools:context=".onload.SelectSpecDays">
         android:layout_alignStart="@+id/wednesday"
         android:layout_alignEnd="@+id/wednesday"
         android:checked="false"
-        android:text="Thursday" />
+        android:text="@string/thursday" />
 
     <CheckBox
         android:layout_width="match_parent"
@@ -69,7 +69,7 @@ tools:context=".onload.SelectSpecDays">
         android:layout_marginRight="40dp"
         android:checked="false"
         android:layout_below="@+id/thursday"
-        android:text="Friday" />
+        android:text="@string/friday" />
 
     <CheckBox
         android:layout_width="match_parent"
@@ -80,7 +80,7 @@ tools:context=".onload.SelectSpecDays">
         android:layout_below="@+id/friday"
         android:layout_alignStart="@+id/friday"
         android:layout_alignEnd="@+id/sunday"
-        android:text="Saturday" />
+        android:text="@string/saturday" />
 
     <CheckBox
         android:layout_width="match_parent"
@@ -91,7 +91,7 @@ tools:context=".onload.SelectSpecDays">
         android:layout_alignStart="@+id/friday"
         android:layout_alignEnd="@+id/friday"
         android:checked="false"
-        android:text="Sunday" />
+        android:text="@string/sunday" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -100,6 +100,7 @@ tools:context=".onload.SelectSpecDays">
         android:layout_marginTop="40dp"
         android:layout_below="@+id/sunday"
         android:layout_alignEnd="@+id/sunday"
+        android:contentDescription="@string/hintNext"
         android:background="@drawable/ic_navigate_next"
         />
 </RelativeLayout>

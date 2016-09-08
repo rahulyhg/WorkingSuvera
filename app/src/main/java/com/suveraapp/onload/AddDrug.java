@@ -25,7 +25,6 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
 
 
     private Bundle bundle;
-    private Overview overview = new Overview();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +32,6 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
         setContentView(R.layout.activity_add_drug);
         //start on select drug
         swapFragment(new SelectDrug());
-    }
-
-    public void swapFragment(Fragment newFragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, newFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
 
     @Override
@@ -82,13 +74,9 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
 
         //checks if the arraylist is already contains 3 values
         if (mySchedule.size() == 3) {
-            //Schedule temp1 = mySchedule.get(1);
-            //Schedule temp2 = mySchedule.get(1);
-
             //pops top off array list and
             //moves everything up if 3 alarm schedules
             //already exist
-
             mySchedule.set(0, mySchedule.get(1));
             mySchedule.set(1, mySchedule.get(2));
             mySchedule.set(2, schedule);
@@ -97,7 +85,7 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
         }
 
         //bundle to pass the arraylist to the overview class
-        bundle.putParcelableArrayList("key", (ArrayList<? extends Parcelable>) mySchedule);
+        bundle.putParcelableArrayList("key", mySchedule);
         Overview overview = new Overview();
         overview.setArguments(bundle);
         swapFragment(overview);
@@ -107,4 +95,12 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
     public void overviewSubmit(AddDrug drug) {
 
     }
+
+    public void swapFragment(Fragment newFragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
 }

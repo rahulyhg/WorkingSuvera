@@ -5,27 +5,6 @@
     tools:context="com.suveraapp.onload.AddSchedule">
 
 
-
-    <NumberPicker
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/numberPicker"
-        android:orientation="horizontal"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"
-        />
-
-    <TimePicker
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/timePicker"
-        android:layout_below="@+id/numberPicker"
-        android:layout_marginTop="10dp"
-        android:timePickerMode="spinner"
-        android:layout_toEndOf="@+id/textView3"
-        />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,39 +13,43 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:text="What's your schedule for it in a given day?"
+        android:text="@string/sched"
         android:id="@+id/textView2"
-
-        android:layout_alignParentStart="true"
         android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Dosage:"
-        android:id="@+id/textView3"
-        android:layout_alignTop="@+id/numberPicker"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_marginTop="77dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Time:"
-        android:id="@+id/textView4"
-        android:layout_marginTop="93dp"
-        android:layout_alignTop="@+id/timePicker"
-        android:layout_alignStart="@+id/textView3" />
 
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button"
-        android:layout_below="@id/timePicker"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/ic_navigate_next"/>
+        android:contentDescription="@string/hintNext"
+        android:background="@drawable/ic_navigate_next"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:selectAllOnFocus="true"
+        android:textAlignment="center"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:hint="@string/hintDosage"
+        android:layout_below="@+id/textView2"
+        android:layout_alignStart="@+id/timePicker"
+        android:layout_alignEnd="@+id/textView2"
+        android:layout_marginTop="20dp"
+        android:focusable="true"
+        />
+
+    <TimePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timePicker"
+        android:layout_marginTop="20dp"
+        android:layout_alignEnd="@id/textView2"
+        android:layout_below="@+id/editText"
+        android:layout_alignStart="@+id/textView2"
+         />
 </RelativeLayout>
