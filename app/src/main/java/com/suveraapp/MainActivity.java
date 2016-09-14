@@ -33,7 +33,7 @@ import com.suveraapp.onload.AddDrug;
 
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, ResultCallback<GoogleSignInResult> {
+public class    MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, ResultCallback<GoogleSignInResult> {
     public static DrugLoader drugLoader;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;

@@ -5,60 +5,51 @@
     tools:context=".onload.Overview">
 
     <TextView
+        android:id="@+id/lblOverview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/overview"
-        android:id="@+id/lblOverview"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="110dp"
-        android:layout_alignParentTop="true"
-         />
+        android:text="@string/overview"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/OverviewFAB"
+
+    <ImageButton
+        android:id="@+id/add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_input_add"
-        android:layout_marginLeft="@dimen/fab_margin"
-        android:layout_marginRight="@dimen/fab_margin"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="25dp" />
+        android:layout_alignStart="@+id/listView"
+        android:layout_marginBottom="110dp"
+        android:background="@drawable/ic_add"
+        android:contentDescription="@string/hintAdd" />
+
+    <ImageButton
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/listView"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="110dp"
+        android:background="@drawable/ic_submit"
+        android:contentDescription="@string/hintSave" />
 
     <RelativeLayout
         android:id="@+id/main_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_view"
+    <ListView
+        android:id="@+id/listView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/lblOverview"
-        android:layout_above="@+id/OverviewFAB"
-        >
-
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/listView"
-            android:textAlignment="center"
-            android:focusable="true"
-            android:layout_below="@+id/lblOverview"
-            android:layout_above="@+id/OverviewFAB"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="60dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            />
-    </android.support.v7.widget.CardView>
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="40dp"
+        android:focusable="false" />
 
 
 </RelativeLayout>

@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.suveraapp.R;
@@ -17,17 +17,13 @@ import com.suveraapp.objects.Schedule;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-/**
- * Created by Hibatop on 30/08/2016.
- */
+
 
 public class Overview extends Fragment {
 
     private AddOverviewListener parentListener;
     private List<String> arrList = new ArrayList<>();
-    private FloatingActionButton floatingActionButton;
 
     public Overview() {
         // Required empty public constructor
@@ -41,6 +37,7 @@ public class Overview extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_overview, container, false);
 
+
         ListView lv = (ListView) view.findViewById(R.id.listView);
         ArrayList<Schedule> mySchedule;
 
@@ -50,24 +47,35 @@ public class Overview extends Fragment {
         mySchedule = b.getParcelableArrayList("key"); //set the new AL to the AL for the drug
 
         //convert schedule list to list of strings for displaying
-        for (Schedule schedule : mySchedule) {
-            arrList.add("Amount: " + String.valueOf(schedule.getAmount()) +
-                    " Time: " + formatTime(schedule.getTime()));
+        if (mySchedule != null) {
+            for (Schedule schedule : mySchedule) {
+                arrList.add("• Dosage: " + String.valueOf(schedule.getAmount()) +
+                        " • Time: " + formatTime(schedule.getTime()) );
+            }
         }
 
         //display amounts and times for each schedule in a listview in Overview
         ArrayAdapter<String> listViewAdapter = new ArrayAdapter<>(
-                getActivity(), android.R.layout.simple_list_item_1, arrList);
+                getActivity(), R.layout.custom_listview, arrList);
 
         lv.setAdapter(listViewAdapter);
 
 
         //listen for action to add new schedule alarm
-        floatingActionButton = (FloatingActionButton) view.findViewById(R.id.OverviewFAB);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        ImageButton add = (ImageButton) view.findViewById(R.id.add);
+        ImageButton save = (ImageButton) view.findViewById(R.id.submit);
+
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getFragmentManager().popBackStack();
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 
@@ -77,9 +85,7 @@ public class Overview extends Fragment {
     //convert milliseconds to hours and minutes
     public String formatTime(long time) {
 
-        String milli = String.format("%1$tH:%1$tM", time);
-
-        return milli;
+        return String.format("%1$tH:%1$tM", time);
     }
 
     @Override

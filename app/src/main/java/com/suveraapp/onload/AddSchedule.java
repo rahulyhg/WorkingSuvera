@@ -60,8 +60,10 @@ public class AddSchedule extends Fragment {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(!(editText.getText().toString().equals(""))){
                 //validates user dosage entry
-                if ((Integer.valueOf(editText.getText().toString()) > 0) && (Integer.valueOf(editText.getText().toString()) <= 5)) {
+                if ((Integer.valueOf(editText.getText().toString()) > 0) && (Integer.valueOf(editText.getText().toString())) <= 5) {
 
                     //sets calendar time to selected time
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -80,6 +82,10 @@ public class AddSchedule extends Fragment {
                     parentListener.scheduleSelected(schedule);
                 } else {
                     Toast.makeText(getContext(), "Please enter a valid dosage amount (between 1 and 5)", Toast.LENGTH_SHORT).show();
+                }
+            }else {
+                    Toast.makeText(getContext(), "Enter a dosage amount between 1 and 5", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
