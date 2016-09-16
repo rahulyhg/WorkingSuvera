@@ -1,12 +1,12 @@
 package com.suveraapp.onload;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 
 import com.suveraapp.R;
+import com.suveraapp.adapter.MyDrug;
 import com.suveraapp.drug.Drug;
 import com.suveraapp.objects.Days;
 import com.suveraapp.objects.Interval;
@@ -14,31 +14,49 @@ import com.suveraapp.objects.Reason;
 import com.suveraapp.objects.Schedule;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugListener, AddReason.AddReasonListener,
         SelectInterval.SelectIntervalListener, SelectSpecDays.Specific_daysListener, AddSchedule.AddScheduleListener, Overview.AddOverviewListener {
 
-    private Days days;
-    private Interval interval;
-    private Reason reason;
+    private boolean[] everyday = new boolean[7];
+
+    //represents data that is needed from each sub fragment
+    private Drug select = new Drug(0, null, null, null);
+    private Reason reason = new Reason(null);
+    private Interval interval = new Interval(false);
+    private Days days = new Days(everyday);
     private ArrayList<Schedule> mySchedule = new ArrayList<>();
 
-
+    //for storing drug data to save in realm
     private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_drug);
+
         //start on select drug
         swapFragment(new SelectDrug());
     }
 
+    //function to set each element in boolean array true (for default choice of everyday)
+    public boolean [] setEveryday(boolean[] a) {
+        boolean[] toFill = new boolean[a.length];
+        Arrays.fill(toFill, true);
+        return toFill;
+    }
+
     @Override
     public void drugSelected(Drug selection) {
+        select = selection;
+
         //passed from Select Drug
         bundle = new Bundle();
-        bundle.putInt("DrugID", selection.getId());
+        bundle.putString("dName", selection.getName());
+        bundle.putInt("dID", selection.getId());
+        bundle.putString("dUrl", selection.getUrl());
+        bundle.putSerializable("dType",selection.getType());
         AddReason addReason = new AddReason();
         addReason.setArguments(bundle);
         swapFragment(addReason);
@@ -46,26 +64,29 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
 
     @Override
     public void reasonGiven(Reason reason) {
-        this.reason = reason;
+        bundle.putString("dReason", reason.getReason());
         swapFragment(new SelectInterval());
     }
 
     @Override
     public void intervalSelected(Interval interval) {
-        this.interval = interval;
-
+        bundle.putBoolean("dInterval",interval.isInterval());
         //checks if the interval is either false (everyday)
         //or true (specific days)
         if (interval.isInterval()) {
             swapFragment(new SelectSpecDays());
         } else {
+
+            //set a default boolean array for everyday being true
+            everyday = setEveryday(everyday);
+            bundle.putBooleanArray("dDays",everyday);
             swapFragment(new AddSchedule());
         }
     }
 
     @Override
     public void daysSelected(Days days) {
-        this.days = days;
+        bundle.putBooleanArray("dDays",days.getDays());
         swapFragment(new AddSchedule());
     }
 
@@ -85,7 +106,7 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
         }
 
         //bundle to pass the arraylist to the overview class
-        bundle.putParcelableArrayList("key", mySchedule);
+        bundle.putParcelableArrayList("dSchedule", mySchedule);
         Overview overview = new Overview();
         overview.setArguments(bundle);
         swapFragment(overview);
@@ -96,6 +117,7 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
 
     }
 
+    //to move from one sub fragment to another
     public void swapFragment(Fragment newFragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, newFragment);

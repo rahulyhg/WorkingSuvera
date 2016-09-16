@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.NumberPicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -75,7 +74,7 @@ public class AddSchedule extends Fragment {
                     }
 
                     //update medicine amount and time in schedule object
-                    schedule.setAmount(Long.valueOf(editText.getText().toString()));
+                    schedule.setDosage(Long.valueOf(editText.getText().toString()));
                     schedule.setTime(calendar.getTimeInMillis());
 
                     //pass through the schedule object if a medicine amount more than 0 is selected

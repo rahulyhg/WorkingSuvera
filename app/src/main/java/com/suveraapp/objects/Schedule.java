@@ -3,18 +3,21 @@ package com.suveraapp.objects;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Schedule implements Parcelable {
+import io.realm.RealmObject;
 
-    private long amount; //amount of medication needed to take
+public class Schedule extends RealmObject implements Parcelable {
+
+    private long dosage; //dosage of medication needed to take
     private long time; // time for alarm stored in milliseconds
 
-    public Schedule(int amount, long time) {
-        this.amount = amount;
+    public Schedule(){}
+    public Schedule(int dosage, long time) {
+        this.dosage = dosage;
         this.time = time;
     }
 
     private Schedule(Parcel in) {
-        amount = in.readInt();
+        dosage = in.readInt();
         time = in.readLong();
     }
 
@@ -29,12 +32,12 @@ public class Schedule implements Parcelable {
         }
     };
 
-    public long getAmount() {
-        return amount;
+    public long getDosage() {
+        return dosage;
     }
 
-    public void setAmount(Long amount) {
-        this.amount = amount;
+    public void setDosage(Long dosage) {
+        this.dosage = dosage;
     }
 
     public long getTime() {

@@ -31,7 +31,7 @@
     <string name="dosage">Dosage:</string>
     <string name="sched">What\'s your schedule for it in a given day?</string>
     <string name="time">Time:</string>
-    <string name="hintDosage">Enter dosage amount</string>
+    <string name="hintDosage">Enter dosage dosage</string>
     <string name="hintSave">Save drug</string>
     <string name="hintAdd">Add new alarm schedule</string>
 </resources>
