@@ -1,6 +1,9 @@
 package com.suveraapp;
 
+import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +19,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.facebook.stetho.Stetho;
@@ -32,20 +37,32 @@ import com.suveraapp.drug.DrugLoader;
 import com.suveraapp.onload.AddDrug;
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
-public class    MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, ResultCallback<GoogleSignInResult> {
+
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, ResultCallback<GoogleSignInResult> {
     public static DrugLoader drugLoader;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private GoogleApiClient mGoogleApiClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         drugLoader = new DrugLoader(this);
         drugLoader.loadDrugs();
+
+        //make action bar translucent
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
         setSupportActionBar(toolbar);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.OverviewFAB);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +77,11 @@ public class    MainActivity extends AppCompatActivity implements NavigationView
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
+        //initialise realm database
+        RealmConfiguration configuration = new RealmConfiguration.Builder(getBaseContext()).build();
+        Realm.setDefaultConfiguration(configuration);
+        Realm realm = Realm.getDefaultInstance();
 
         //stetho
         Stetho.initialize(
@@ -92,15 +114,16 @@ public class    MainActivity extends AppCompatActivity implements NavigationView
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
-        if(mGoogleApiClient != null){
+        if (mGoogleApiClient != null) {
             mGoogleApiClient.connect();
         }
     }
+
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
@@ -115,7 +138,7 @@ public class    MainActivity extends AppCompatActivity implements NavigationView
         transaction.commit();
     }
 
-    public void silentLogin(){
+    public void silentLogin() {
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -143,12 +166,6 @@ public class    MainActivity extends AppCompatActivity implements NavigationView
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -175,7 +192,7 @@ public class    MainActivity extends AppCompatActivity implements NavigationView
             swapFragment(new SettingsScreen());
         } else if (id == R.id.nav_help) {
             swapFragment(new HelpScreen());
-        } else if (id == R.id.nav_home){
+        } else if (id == R.id.nav_home) {
             swapFragment(new HomeScreen());
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

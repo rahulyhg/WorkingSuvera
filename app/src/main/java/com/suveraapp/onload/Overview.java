@@ -29,7 +29,6 @@ import io.realm.RealmConfiguration;
 
 public class Overview extends Fragment {
 
-    private boolean[] everyday = new boolean[7];
     private Drug select;
     private Reason reason;
     private Interval interval;
@@ -51,9 +50,9 @@ public class Overview extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_overview, container, false);
 
-        
+
         ListView lv = (ListView) view.findViewById(R.id.listView);
-        
+
         //acquire bundle which contains all the saved data for creating
         Bundle b = getArguments();
         int drugID = b.getInt("dID");
@@ -71,8 +70,6 @@ public class Overview extends Fragment {
         interval = new Interval(drugInterval);
         days = new Days(drugDays);
 
-        //set the new AL to the AL for the drug
-
         //convert schedule list to list of strings for displaying
         if (drugSchedule != null) {
             for (Schedule schedule : drugSchedule) {
@@ -86,7 +83,6 @@ public class Overview extends Fragment {
                 getActivity(), R.layout.custom_listview, arrList);
 
         lv.setAdapter(listViewAdapter);
-
 
         //listen for action to add new schedule alarm
         ImageButton add = (ImageButton) view.findViewById(R.id.add);
@@ -142,7 +138,7 @@ public class Overview extends Fragment {
     }
 
     public interface AddOverviewListener {
-        void overviewSubmit(AddDrug drug);
+        void overviewSubmit();
     }
 
 

@@ -14,13 +14,8 @@ import android.widget.Spinner;
 import com.suveraapp.R;
 import com.suveraapp.objects.Interval;
 
-/**
- * Created by Hibatop on 30/08/2016.
- */
 public class SelectInterval extends Fragment {
     private SelectIntervalListener parentListener;
-    private ImageButton btnNext;
-    private Spinner mySpinner;
     private int myInterval;
     private Interval interval = new Interval(false);
 
@@ -35,7 +30,7 @@ public class SelectInterval extends Fragment {
         View view = inflater.inflate(R.layout.fragment_select_interval, container, false);
 
         //find spinner
-        mySpinner = (Spinner) view.findViewById(R.id.interval);
+        Spinner mySpinner = (Spinner) view.findViewById(R.id.interval);
 
         //populate spinner in drop down manner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.interval_array, android.R.layout.simple_spinner_dropdown_item);
@@ -56,7 +51,7 @@ public class SelectInterval extends Fragment {
         });
 
         //find button
-        btnNext = (ImageButton) view.findViewById(R.id.btnConfirmInterval);
+        ImageButton btnNext = (ImageButton) view.findViewById(R.id.btnConfirmInterval);
         //listen for button action
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override

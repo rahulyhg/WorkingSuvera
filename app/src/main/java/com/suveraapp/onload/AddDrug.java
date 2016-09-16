@@ -113,7 +113,7 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
     }
 
     @Override
-    public void overviewSubmit(AddDrug drug) {
+    public void overviewSubmit() {
 
     }
 
