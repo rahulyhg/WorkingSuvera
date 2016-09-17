@@ -5,37 +5,35 @@
     tools:context=".onload.SelectInterval">
 
     <TextView
+        android:id="@+id/lblSelectInterval"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/often"
-        android:id="@+id/lblSelectInterval"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="110dp"
-        />
+        android:text="@string/often"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Spinner
+        android:id="@+id/interval"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/interval"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
         android:layout_below="@+id/lblSelectInterval"
         android:layout_centerHorizontal="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="40dp"
         android:selectAllOnFocus="true"
         android:spinnerMode="dropdown" />
 
     <ImageButton
+        android:id="@+id/btnConfirmInterval"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnConfirmInterval"
-        android:layout_below="@+id/interval"
-        android:contentDescription="@string/hintNext"
         android:layout_alignEnd="@+id/interval"
+        android:layout_below="@+id/interval"
         android:layout_marginTop="40dp"
         android:background="@drawable/ic_navigate_next"
-         />
+        android:contentDescription="@string/hintNext" />
 
 </RelativeLayout>

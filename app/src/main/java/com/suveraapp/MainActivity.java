@@ -55,15 +55,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drugLoader = new DrugLoader(this);
         drugLoader.loadDrugs();
 
-        //make action bar transparent
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbarlayout);
-        appBarLayout.setElevation(0);
-        toolbar.setElevation(0);
-        appBarLayout.setBackgroundColor(ContextCompat.getColor(this, android.R.color.transparent));
-        toolbar.setBackgroundColor(ContextCompat.getColor(this, android.R.color.transparent));
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.OverviewFAB);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

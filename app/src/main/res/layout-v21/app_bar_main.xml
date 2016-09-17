@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/ic_background"
+    android:backgroundTint="#80323232"
+    android:backgroundTintMode="add"
     android:fitsSystemWindows="true"
     tools:context="com.suveraapp.MainActivity">
 
