@@ -3,6 +3,8 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#80323232"
+    android:background="@drawable/ic_background"
+    android:backgroundTint="#80323232"
+    android:backgroundTintMode="multiply"
     >
 </LinearLayout>

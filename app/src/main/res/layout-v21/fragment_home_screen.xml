@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/ic_background"
     android:backgroundTint="#80323232"
-    android:backgroundTintMode="src_over"
+    android:backgroundTintMode="add"
     tools:context="com.suveraapp.HomeScreen">
 
 
