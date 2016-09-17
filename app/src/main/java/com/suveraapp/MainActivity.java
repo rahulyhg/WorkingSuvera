@@ -6,10 +6,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -53,15 +55,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drugLoader = new DrugLoader(this);
         drugLoader.loadDrugs();
 
-        //make action bar translucent
-        getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+        //make action bar transparent
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-        setSupportActionBar(toolbar);
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbarlayout);
+        appBarLayout.setElevation(0);
+        toolbar.setElevation(0);
+        appBarLayout.setBackgroundColor(ContextCompat.getColor(this, android.R.color.transparent));
+        toolbar.setBackgroundColor(ContextCompat.getColor(this, android.R.color.transparent));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.OverviewFAB);
         fab.setOnClickListener(new View.OnClickListener() {

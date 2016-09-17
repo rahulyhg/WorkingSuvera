@@ -2,26 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
+
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_account"
-            android:title="Home" />
+            android:title="@string/home" />
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_account"
-            android:title="My Profile" />
+            android:title="@string/my_profile" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"
-            android:title="Settings" />
+            android:title="@string/settings" />
     </group>
 
-    <item android:title="Suvera">
+    <item android:title="@string/suvera">
         <menu>
             <item
                 android:id="@+id/nav_help"
                 android:icon="@drawable/ic_help"
-                android:title="Help" />
+                android:title="@string/help" />
         </menu>
     </item>
 
