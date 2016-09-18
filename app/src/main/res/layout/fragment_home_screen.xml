@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.suveraapp.HomeScreen"
-   >
+    tools:context="com.suveraapp.HomeScreen">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,11 +42,10 @@
             android:textSize="20sp" />
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/rView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/rView"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="40dp"
-            />
+            android:layout_margin="40dp" />
     </LinearLayout>
 </RelativeLayout>

@@ -3,36 +3,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".onload.SelectDrug">
+
     <AutoCompleteTextView
+        android:id="@+id/txtDrugName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hintDrug"
-        android:id="@+id/txtDrugName"
+        android:layout_below="@+id/lblSelectDrugTitle"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="40dp"
+        android:hint="@string/hintDrug"
         android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:layout_below="@+id/lblSelectDrugTitle"
-        android:layout_centerHorizontal="true" />
+        android:singleLine="true" />
 
     <TextView
+        android:id="@+id/lblSelectDrugTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/newMed"
-        android:id="@+id/lblSelectDrugTitle"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="110dp" />
+        android:layout_marginTop="110dp"
+        android:text="@string/newMed"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ImageButton
+        android:id="@+id/btnConfirmDrugName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnConfirmDrugName"
-        android:layout_centerVertical="true"
-        android:contentDescription="@string/hintNext"
-        android:layout_marginTop="40dp"
         android:layout_alignEnd="@+id/txtDrugName"
-        android:background="@drawable/ic_navigate_next"/>
+        android:layout_centerVertical="true"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/ic_navigate_next"
+        android:contentDescription="@string/hintNext" />
 </RelativeLayout>

@@ -54,13 +54,13 @@ public class ProfileScreen extends Fragment implements View.OnClickListener, Goo
                 .build();
 
 
-        if(!Profile.getInstance().isLoggedIn()) {
+        if (!Profile.getInstance().isLoggedIn()) {
             this.view = inflater.inflate(R.layout.fragment_profile_screen_logged_out, container, false);
             startSignIn();
-        }else{
+        } else {
             this.view = inflater.inflate(R.layout.fragment_profile_screen, container, false);
             TextView lblProfileName = (TextView) view.findViewById(R.id.lblProfileName);
-            lblProfileName.setText("Welcome back, "+Profile.getInstance().getDisplayName());
+            lblProfileName.setText(R.string.welc + Profile.getInstance().getDisplayName());
             Button btnLogout = (Button) view.findViewById(R.id.btnLogoutUser);
             btnLogout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -74,12 +74,12 @@ public class ProfileScreen extends Fragment implements View.OnClickListener, Goo
         return this.view;
     }
 
-    public void reload(){
+    public void reload() {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.detach(this).attach(this).commit();
     }
 
-    public void startSignIn(){
+    public void startSignIn() {
         // Configure Google Sign In
         mGoogleApiClient.connect();
         SignInButton signInButton = (SignInButton) view.findViewById(R.id.sign_in_button);
@@ -105,12 +105,12 @@ public class ProfileScreen extends Fragment implements View.OnClickListener, Goo
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
-        if(mAuth != null) {
+        if (mAuth != null) {
             mAuth.addAuthStateListener(mAuthListener);
         }
-        if(mGoogleApiClient != null){
+        if (mGoogleApiClient != null) {
             mGoogleApiClient.connect();
         }
     }
@@ -156,15 +156,15 @@ public class ProfileScreen extends Fragment implements View.OnClickListener, Goo
         }
     }
 
-    public void signOut(){
+    public void signOut() {
         //fails because it's not setup when logged in
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(Status status) {
-                        if(status.isSuccess()){
+                        if (status.isSuccess()) {
                             Toast.makeText(getContext(), "You've been logged out.", Toast.LENGTH_LONG).show();
-                        }else{
+                        } else {
                             Toast.makeText(getContext(), "Logout request error.", Toast.LENGTH_LONG).show();
                         }
                     }

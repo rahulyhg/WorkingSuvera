@@ -23,11 +23,9 @@ import java.util.Calendar;
  */
 public class AddSchedule extends Fragment {
     private AddScheduleListener parentListener;
-    private ImageButton btnNext;
     private Schedule schedule;
     private TimePicker timePicker;
     private EditText editText;
-    private int hour, min;
 
     public AddSchedule() {
         // Required empty public constructor
@@ -54,35 +52,35 @@ public class AddSchedule extends Fragment {
         //find edittext
         editText = (EditText) view.findViewById(R.id.editText);
         //find button
-        btnNext = (ImageButton) view.findViewById(R.id.button);
+        ImageButton btnNext = (ImageButton) view.findViewById(R.id.button);
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(!(editText.getText().toString().equals(""))){
-                //validates user dosage entry
-                if ((Integer.valueOf(editText.getText().toString()) > 0) && (Integer.valueOf(editText.getText().toString())) <= 5) {
+                if (!(editText.getText().toString().equals(""))) {
+                    //validates user dosage entry
+                    if ((Integer.valueOf(editText.getText().toString()) > 0) && (Integer.valueOf(editText.getText().toString())) <= 5) {
 
-                    //sets calendar time to selected time
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        calendar.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
-                        calendar.set(Calendar.MINUTE, timePicker.getMinute());
+                        //sets calendar time to selected time
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            calendar.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
+                            calendar.set(Calendar.MINUTE, timePicker.getMinute());
+                        } else {
+                            calendar.set(Calendar.HOUR_OF_DAY, timePicker.getCurrentHour());
+                            calendar.set(Calendar.MINUTE, timePicker.getCurrentMinute());
+                        }
+
+                        //update medicine amount and time in schedule object
+                        schedule.setDosage(Long.valueOf(editText.getText().toString()));
+                        schedule.setTime(calendar.getTimeInMillis());
+
+                        //pass through the schedule object if a medicine amount more than 0 is selected
+                        parentListener.scheduleSelected(schedule);
                     } else {
-                        calendar.set(Calendar.HOUR_OF_DAY, timePicker.getCurrentHour());
-                        calendar.set(Calendar.MINUTE, timePicker.getCurrentMinute());
+                        Toast.makeText(getContext(), "Please enter a valid dosage amount (between 1 and 5)", Toast.LENGTH_SHORT).show();
                     }
-
-                    //update medicine amount and time in schedule object
-                    schedule.setDosage(Long.valueOf(editText.getText().toString()));
-                    schedule.setTime(calendar.getTimeInMillis());
-
-                    //pass through the schedule object if a medicine amount more than 0 is selected
-                    parentListener.scheduleSelected(schedule);
                 } else {
-                    Toast.makeText(getContext(), "Please enter a valid dosage amount (between 1 and 5)", Toast.LENGTH_SHORT).show();
-                }
-            }else {
                     Toast.makeText(getContext(), "Enter a dosage amount between 1 and 5", Toast.LENGTH_SHORT).show();
 
                 }

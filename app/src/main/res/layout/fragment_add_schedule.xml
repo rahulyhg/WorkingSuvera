@@ -13,9 +13,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:textAlignment="center"
         android:layout_marginTop="110dp"
         android:text="@string/sched"
+        android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 

@@ -6,36 +6,35 @@
 
 
     <TextView
+        android:id="@+id/lblAddReasonTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/whyDrug"
-        android:id="@+id/lblAddReasonTitle"
-        android:layout_marginTop="110dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-         />
+        android:layout_marginTop="110dp"
+        android:text="@string/whyDrug"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
+        android:id="@+id/txtDrugReason"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtDrugReason"
+        android:layout_below="@+id/lblAddReasonTitle"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="40dp"
         android:hint="@string/hintReason"
-        android:singleLine="true"
         android:selectAllOnFocus="true"
-        android:layout_below="@+id/lblAddReasonTitle"
-        android:layout_centerHorizontal="true" />
+        android:singleLine="true" />
 
     <ImageButton
+        android:id="@+id/btnConfirmReason"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnConfirmReason"
-        android:contentDescription="@string/hintNext"
-        android:layout_centerVertical="true"
         android:layout_alignEnd="@+id/txtDrugReason"
+        android:layout_centerVertical="true"
         android:layout_marginTop="40dp"
-        android:background="@drawable/ic_navigate_next"/>
+        android:background="@drawable/ic_navigate_next"
+        android:contentDescription="@string/hintNext" />
 </RelativeLayout>

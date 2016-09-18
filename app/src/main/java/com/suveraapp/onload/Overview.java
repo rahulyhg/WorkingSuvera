@@ -1,7 +1,6 @@
 package com.suveraapp.onload;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -37,6 +36,7 @@ public class Overview extends Fragment {
     private ArrayList<Schedule> drugSchedule;
     private List<String> arrList = new ArrayList<>();
     private MyDrug myDrug;
+    private String[] name;
 
     public Overview() {
         // Required empty public constructor
@@ -53,7 +53,7 @@ public class Overview extends Fragment {
 
         ListView lv = (ListView) view.findViewById(R.id.listView);
 
-        //acquire bundle which contains all the saved data for creating
+        //acquire bundle object which contains all the saved data for creating our RealmObject
         Bundle b = getArguments();
         int drugID = b.getInt("dID");
         String drugName = b.getString("dName");
@@ -61,16 +61,23 @@ public class Overview extends Fragment {
         String drugReason = b.getString("dReason");
         DrugType drugType = (DrugType) b.getSerializable("dType");
         boolean drugInterval = b.getBoolean("dInterval");
-        boolean [] drugDays = b.getBooleanArray("dDays");
+        boolean[] drugDays = b.getBooleanArray("dDays");
         drugSchedule = b.getParcelableArrayList("dSchedule");
 
-        //create new objects using the bundle
-        select = new Drug(drugID,drugName,drugType,drugURL);
+        //create an array of the drugname just for confirmation toast
+        if (drugName != null) {
+            name = drugName.split(" ");
+        } else {
+            name = new String[]{"Unknown"};
+        }
+
+        //create new instances of objects for RealmObject using the bundle
+        select = new Drug(drugID, drugName, drugType, drugURL);
         reason = new Reason(drugReason);
         interval = new Interval(drugInterval);
         days = new Days(drugDays);
 
-        //convert schedule list to list of strings for displaying
+        //convert schedule list to list of strings for displaying in list view
         if (drugSchedule != null) {
             for (Schedule schedule : drugSchedule) {
                 arrList.add("• Dosage: " + String.valueOf(schedule.getDosage()) +
@@ -78,7 +85,7 @@ public class Overview extends Fragment {
             }
         }
 
-        final String [] name = drugName.split(" ");
+
         //display amounts and times for each schedule in a listview in Overview
         ArrayAdapter<String> listViewAdapter = new ArrayAdapter<>(
                 getActivity(), R.layout.custom_listview, arrList);
@@ -99,16 +106,16 @@ public class Overview extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //this part creates / updates the RealmObject in the realm database
                 RealmConfiguration configuration = new RealmConfiguration.Builder(getActivity()).build();
                 Realm.setDefaultConfiguration(configuration);
                 Realm realm = Realm.getDefaultInstance();
-                myDrug = new MyDrug(select,reason,interval,days,drugSchedule);
+                myDrug = new MyDrug(select, reason, interval, days, drugSchedule);
                 realm.beginTransaction();
                 realm.copyToRealmOrUpdate(myDrug);
                 realm.commitTransaction();
                 realm.close();
-                Toast.makeText(getContext(), name[0]  +" has been successfully added to your reminders." , Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), name[0] + " has been successfully added to your reminders.", Toast.LENGTH_LONG).show();
                 getActivity().finish();
             }
         });

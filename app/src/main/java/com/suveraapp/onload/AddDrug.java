@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.WindowManager;
 
 import com.suveraapp.R;
-import com.suveraapp.adapter.MyDrug;
 import com.suveraapp.drug.Drug;
 import com.suveraapp.objects.Days;
 import com.suveraapp.objects.Interval;
@@ -47,7 +46,7 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
     }
 
     //function to set each element in boolean array true (for default choice of everyday)
-    public boolean [] setEveryday(boolean[] a) {
+    public boolean[] setEveryday(boolean[] a) {
         boolean[] toFill = new boolean[a.length];
         Arrays.fill(toFill, true);
         return toFill;
@@ -62,7 +61,7 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
         bundle.putString("dName", selection.getName());
         bundle.putInt("dID", selection.getId());
         bundle.putString("dUrl", selection.getUrl());
-        bundle.putSerializable("dType",selection.getType());
+        bundle.putSerializable("dType", selection.getType());
         AddReason addReason = new AddReason();
         addReason.setArguments(bundle);
         swapFragment(addReason);
@@ -76,7 +75,7 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
 
     @Override
     public void intervalSelected(Interval interval) {
-        bundle.putBoolean("dInterval",interval.isInterval());
+        bundle.putBoolean("dInterval", interval.isInterval());
         //checks if the interval is either false (everyday)
         //or true (specific days)
         if (interval.isInterval()) {
@@ -85,14 +84,14 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
 
             //set a default boolean array for everyday being true
             everyday = setEveryday(everyday);
-            bundle.putBooleanArray("dDays",everyday);
+            bundle.putBooleanArray("dDays", everyday);
             swapFragment(new AddSchedule());
         }
     }
 
     @Override
     public void daysSelected(Days days) {
-        bundle.putBooleanArray("dDays",days.getDays());
+        bundle.putBooleanArray("dDays", days.getDays());
         swapFragment(new AddSchedule());
     }
 

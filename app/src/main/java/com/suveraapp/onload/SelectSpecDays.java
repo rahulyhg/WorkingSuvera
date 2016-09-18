@@ -14,16 +14,12 @@ import android.widget.Toast;
 import com.suveraapp.R;
 import com.suveraapp.objects.Days;
 
-/**
- * Created by Hibatop on 31/08/2016.
- */
 public class SelectSpecDays extends Fragment {
 
     private Specific_daysListener parentListener;
-    private ImageButton btnNext;
     private CheckBox mon, tue, wed, thu, fri, sat, sun;
     private boolean[] specDays = new boolean[7];
-    private boolean[] dummy;
+    private boolean[] dummy = new boolean[]{false};
     private Days days = new Days(dummy);
 
     public SelectSpecDays() {
@@ -46,54 +42,21 @@ public class SelectSpecDays extends Fragment {
         sun = (CheckBox) view.findViewById(R.id.sunday);
 
         //find button
-        btnNext = (ImageButton) view.findViewById(R.id.btnConfirmDays);
+        ImageButton btnNext = (ImageButton) view.findViewById(R.id.btnConfirmDays);
 
         //listen for user input
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //set each element in the boolean array equivalent to the checked boxes
-                if (mon.isChecked()) {
-                    specDays[0] = true;
-                } else {
-                    specDays[0] = false;
-                }
+                specDays[0] = mon.isChecked();
+                specDays[1] = tue.isChecked();
+                specDays[2] = wed.isChecked();
+                specDays[3] = thu.isChecked();
+                specDays[4] = fri.isChecked();
+                specDays[5] = sat.isChecked();
+                specDays[6] = sun.isChecked();
 
-                if (tue.isChecked()) {
-                    specDays[1] = true;
-                } else {
-                    specDays[1] = false;
-                }
-
-                if (wed.isChecked()) {
-                    specDays[2] = true;
-                } else {
-                    specDays[2] = false;
-                }
-
-                if (thu.isChecked()) {
-                    specDays[3] = true;
-                } else {
-                    specDays[3] = false;
-                }
-
-                if (fri.isChecked()) {
-                    specDays[4] = true;
-                } else {
-                    specDays[4] = false;
-                }
-
-                if (sat.isChecked()) {
-                    specDays[5] = true;
-                } else {
-                    specDays[5] = false;
-                }
-
-                if (sun.isChecked()) {
-                    specDays[6] = true;
-                } else {
-                    specDays[6] = false;
-                }
 
                 //check if any of the boxes have been selected to validate a day has been selected
                 if (containsTrue(specDays)) {

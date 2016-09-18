@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.suveraapp.MainActivity;
 import com.suveraapp.R;
-import com.suveraapp.objects.Interval;
 import com.suveraapp.objects.Reason;
 
 public class AddReason extends Fragment {
@@ -36,14 +35,14 @@ public class AddReason extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_reason, container, false);
-        if(getArguments()!= null){
+        if (getArguments() != null) {
             DrugId = getArguments().getInt("DrugID");
         }
 
         //splitting the drug name into an array of strings
-        String [] name = MainActivity.drugLoader.getDrug(DrugId).getName().split(" ") ;
+        String[] name = MainActivity.drugLoader.getDrug(DrugId).getName().split(" ");
         title = "Why do you take " + name[0] + "?"; //taking the first string of each element in array
-                                                           //as this represents the drug
+        //as this represents the drug
 
         //find title and editable text
         lblTitle = (TextView) view.findViewById(R.id.lblAddReasonTitle);
@@ -61,18 +60,19 @@ public class AddReason extends Fragment {
             public void onClick(View view) {
 
                 //validate that the reason is longer than 2 letters
-                if(txtReason.getText().toString().length() > 2){
+                if (txtReason.getText().toString().length() > 2) {
                     //set Reason object to the reason entered
                     myReason.setReason(txtReason.getText().toString());
                     //pass through to parent fragactivity
                     parentListener.reasonGiven(myReason);
-                }else{
+                } else {
                     Toast.makeText(getContext(), "Reason must be longer than 2 letters.", Toast.LENGTH_LONG).show();
                 }
             }
         });
         return view;
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

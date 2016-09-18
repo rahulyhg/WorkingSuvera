@@ -22,8 +22,6 @@ import com.suveraapp.drug.DrugType;
 
 public class SelectDrug extends Fragment {
     private AutoCompleteTextView txtDrugName;
-    private View parentView;
-    private ImageButton btnNext;
     private SelectDrugListener parentListener;
 
 
@@ -40,14 +38,13 @@ public class SelectDrug extends Fragment {
 
         final View view = inflater.inflate(R.layout.fragment_select_drug, container, false);
         //save the view for later use
-        parentView = view;
 
         //create an adapter and fill it with the loaded drug names
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, MainActivity.drugLoader.getNameArray());
         txtDrugName = (AutoCompleteTextView) view.findViewById(R.id.txtDrugName);
         txtDrugName.setThreshold(1); // will start search after 1 char
         txtDrugName.setAdapter(adapter); // setup the adapter
-        btnNext = (ImageButton) view.findViewById(R.id.btnConfirmDrugName); // get the button
+        ImageButton btnNext = (ImageButton) view.findViewById(R.id.btnConfirmDrugName);
         btnNext.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {

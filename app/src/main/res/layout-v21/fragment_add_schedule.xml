@@ -6,48 +6,46 @@
 
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
         android:layout_alignParentTop="true"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
+        android:layout_marginTop="45dp"
         android:text="@string/sched"
-        android:id="@+id/textView2"
-        android:layout_centerHorizontal="true" />
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 
     <ImageButton
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:contentDescription="@string/hintNext"
-        android:background="@drawable/ic_navigate_next"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/ic_navigate_next"
+        android:contentDescription="@string/hintNext" />
 
     <EditText
+        android:id="@+id/editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="number"
-        android:textAlignment="center"
-        android:ems="10"
-        android:id="@+id/editText"
-        android:hint="@string/hintDosage"
-        android:layout_below="@+id/textView2"
-        android:layout_alignStart="@+id/timePicker"
         android:layout_alignEnd="@+id/textView2"
+        android:layout_alignStart="@+id/timePicker"
+        android:layout_below="@+id/textView2"
         android:layout_marginTop="20dp"
-        />
+        android:ems="10"
+        android:hint="@string/hintDosage"
+        android:inputType="number"
+        android:textAlignment="center" />
 
     <TimePicker
+        android:id="@+id/timePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/timePicker"
-        android:layout_marginTop="20dp"
         android:layout_alignEnd="@id/textView2"
-        android:layout_below="@+id/editText"
         android:layout_alignStart="@+id/textView2"
-         />
+        android:layout_below="@+id/editText"
+        android:layout_marginTop="20dp" />
 </RelativeLayout>

@@ -59,7 +59,7 @@ public class SelectInterval extends Fragment {
 
                 //sets the interval object to true, if "Specific days" is selected and
                 //false if "Everyday" is selected
-                if(myInterval == 1){
+                if (myInterval == 1) {
                     interval.setInterval(true);
                 } else {
                     interval.setInterval(false);

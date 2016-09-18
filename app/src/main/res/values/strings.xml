@@ -13,7 +13,7 @@
     </string-array>
 
     <string name="overview">Drug schedule overview</string>
-    <string name="hintDrug">eg. Citalopram 10mg</string>
+    <string name="hintDrug">eg. Advagraf 0.5mg</string>
     <string name="newMed">Let\'s add a new medication.</string>
     <string name="often">How often do you need it?</string>
     <string name="hintNext">Next stage</string>
@@ -41,8 +41,9 @@
     <string name="suvera">Suvera</string>
     <string name="help">Help</string>
     <string name="welcome">Welcome</string>
-    <string name="logout">Logout</string>
+    <string name="logout">Log out</string>
     <string name="hey">Hey</string>
+    <string name="welc">Welcome Back, </string>
 
     <string name="mMeds">Here are your <b>morning</b> meds:</string>
     <string name="aMeds">Here are your <b>afternoon</b> meds:</string>
@@ -55,6 +56,7 @@
     <string name="itThu">It\'s Thursday, today.</string>
     <string name="itFri">It\'s Friday, today.</string>
     <string name="itSat">It\'s Saturday, today.</string>
+    <string name="contact">contact@suvera.co.uk</string>
 
 
 </resources>

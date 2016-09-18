@@ -11,10 +11,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-/**
- * Created by williammeaton on 31/08/2016.
- */
-public class Profile implements OnCompleteListener<AuthResult>{
+public class Profile implements OnCompleteListener<AuthResult> {
     private static Profile instance;
     private boolean logged;
     private boolean authenticated;
@@ -22,7 +19,7 @@ public class Profile implements OnCompleteListener<AuthResult>{
     private String displayName;
     private FirebaseAuth mAuth;
 
-    private Profile(){
+    private Profile() {
         logged = false;
         authenticated = false;
         familyName = "";
@@ -30,22 +27,22 @@ public class Profile implements OnCompleteListener<AuthResult>{
         mAuth = FirebaseAuth.getInstance();
     }
 
-    public static Profile getInstance(){
-        if(instance == null){
+    public static Profile getInstance() {
+        if (instance == null) {
             instance = new Profile();
         }
         return instance;
     }
 
-    public boolean isLoggedIn(){
+    public boolean isLoggedIn() {
         return logged;
     }
 
-    public boolean isAuthenticated(){
+    public boolean isAuthenticated() {
         return authenticated;
     }
 
-    public void setLoggedIn(boolean b){
+    public void setLoggedIn(boolean b) {
         this.logged = b;
     }
 
@@ -57,19 +54,19 @@ public class Profile implements OnCompleteListener<AuthResult>{
         return displayName;
     }
 
-    public void setProfile(GoogleSignInAccount gsi){
-        if(gsi!= null) {
+    public void setProfile(GoogleSignInAccount gsi) {
+        if (gsi != null) {
             this.logged = true;
             this.familyName = gsi.getFamilyName();
             this.displayName = gsi.getDisplayName();
             firebaseAuthWithGoogle(gsi);
             Log.d("Firebase", "Login success");
-        }else{
+        } else {
             Log.d("Firebase", "Login failed");
         }
     }
 
-    public void reset(){
+    public void reset() {
         instance = new Profile();
         FirebaseAuth.getInstance().signOut();
 
@@ -82,10 +79,10 @@ public class Profile implements OnCompleteListener<AuthResult>{
 
     @Override
     public void onComplete(@NonNull Task<AuthResult> task) {
-        if(task.isSuccessful()){
+        if (task.isSuccessful()) {
             authenticated = true;
             Log.d("Firebase", "Account authenticated");
-        }else{
+        } else {
             authenticated = false;
             Log.d("Firebase", "Account authentication failed");
         }

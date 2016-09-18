@@ -42,9 +42,9 @@
             android:textSize="20sp" />
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/rView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/rView"
             android:layout_gravity="center_horizontal"
             android:layout_margin="40dp"
             android:backgroundTintMode="add" />
