@@ -12,7 +12,6 @@
         <item>On specific days</item>
     </string-array>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="overview">Drug schedule overview</string>
     <string name="hintDrug">eg. Citalopram 10mg</string>
     <string name="newMed">Let\'s add a new medication.</string>
@@ -21,6 +20,7 @@
     <string name="whyDrug">Why do you take this drug?</string>
     <string name="hintReason">eg. My back hurts</string>
     <string name="days">Which days do you need it?</string>
+
     <string name="monday">Monday</string>
     <string name="tuesday">Tuesday</string>
     <string name="wednesday">Wednesday</string>
@@ -28,6 +28,7 @@
     <string name="friday">Friday</string>
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
+
     <string name="dosage">Dosage:</string>
     <string name="sched">What\'s your schedule for it in a given day?</string>
     <string name="time">Time:</string>
@@ -41,4 +42,19 @@
     <string name="help">Help</string>
     <string name="welcome">Welcome</string>
     <string name="logout">Logout</string>
+    <string name="hey">Hey</string>
+
+    <string name="mMeds">Here are your <b>morning</b> meds:</string>
+    <string name="aMeds">Here are your <b>afternoon</b> meds:</string>
+    <string name="eMeds">Here are your <b>evening</b> meds:</string>
+
+    <string name="itSun">It\'s Sunday, today.</string>
+    <string name="itMon">It\'s Monday, today.</string>
+    <string name="itTue">It\'s Tuesday, today.</string>
+    <string name="itWed">It\'s Wednesday, today.</string>
+    <string name="itThu">It\'s Thursday, today.</string>
+    <string name="itFri">It\'s Friday, today.</string>
+    <string name="itSat">It\'s Saturday, today.</string>
+
+
 </resources>
