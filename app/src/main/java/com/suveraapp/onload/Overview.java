@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.suveraapp.R;
 import com.suveraapp.adapter.MyDrug;
@@ -34,7 +35,6 @@ public class Overview extends Fragment {
     private Interval interval;
     private Days days;
     private ArrayList<Schedule> drugSchedule;
-    private AddOverviewListener parentListener;
     private List<String> arrList = new ArrayList<>();
     private MyDrug myDrug;
 
@@ -78,6 +78,7 @@ public class Overview extends Fragment {
             }
         }
 
+        final String [] name = drugName.split(" ");
         //display amounts and times for each schedule in a listview in Overview
         ArrayAdapter<String> listViewAdapter = new ArrayAdapter<>(
                 getActivity(), R.layout.custom_listview, arrList);
@@ -107,6 +108,7 @@ public class Overview extends Fragment {
                 realm.copyToRealmOrUpdate(myDrug);
                 realm.commitTransaction();
                 realm.close();
+                Toast.makeText(getContext(), name[0]  +" has been successfully added to your reminders." , Toast.LENGTH_LONG).show();
                 getActivity().finish();
             }
         });
@@ -119,27 +121,5 @@ public class Overview extends Fragment {
 
         return String.format("%1$tH:%1$tM", time);
     }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof AddOverviewListener) {
-            parentListener = (AddOverviewListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        parentListener = null;
-    }
-
-    public interface AddOverviewListener {
-        void overviewSubmit();
-    }
-
 
 }

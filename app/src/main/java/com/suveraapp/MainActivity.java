@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drugLoader.loadDrugs();
 
         //hide status bar on lower sdks
-
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.view.WindowManager;
 
 import com.suveraapp.R;
 import com.suveraapp.adapter.MyDrug;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugListener, AddReason.AddReasonListener,
-        SelectInterval.SelectIntervalListener, SelectSpecDays.Specific_daysListener, AddSchedule.AddScheduleListener, Overview.AddOverviewListener {
+        SelectInterval.SelectIntervalListener, SelectSpecDays.Specific_daysListener, AddSchedule.AddScheduleListener {
 
     private boolean[] everyday = new boolean[7];
 
@@ -28,6 +29,7 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
     private Days days = new Days(everyday);
     private ArrayList<Schedule> mySchedule = new ArrayList<>();
 
+
     //for storing drug data to save in realm
     private Bundle bundle;
 
@@ -35,6 +37,10 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_drug);
+
+        //hide status bar on lower sdks
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //start on select drug
         swapFragment(new SelectDrug());
@@ -112,11 +118,6 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
         swapFragment(overview);
     }
 
-    @Override
-    public void overviewSubmit() {
-
-    }
-
     //to move from one sub fragment to another
     public void swapFragment(Fragment newFragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -124,5 +125,4 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
 }
