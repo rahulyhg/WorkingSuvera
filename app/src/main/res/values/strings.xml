@@ -48,6 +48,7 @@
     <string name="mMeds">Here are your <b>morning</b> meds:</string>
     <string name="aMeds">Here are your <b>afternoon</b> meds:</string>
     <string name="eMeds">Here are your <b>evening</b> meds:</string>
+    <string name="lMeds">Here are your <b>late night</b> meds:</string>
 
     <string name="itSun">It\'s Sunday, today.</string>
     <string name="itMon">It\'s Monday, today.</string>
@@ -57,6 +58,7 @@
     <string name="itFri">It\'s Friday, today.</string>
     <string name="itSat">It\'s Saturday, today.</string>
     <string name="contact">contact@suvera.co.uk</string>
+    <string name="drug">Drug</string>
 
 
 </resources>

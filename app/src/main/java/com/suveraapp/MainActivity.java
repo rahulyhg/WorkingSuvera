@@ -1,6 +1,7 @@
 package com.suveraapp;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.facebook.stetho.Stetho;
@@ -32,6 +34,9 @@ import com.suveraapp.drug.DrugLoader;
 import com.suveraapp.onload.AddDrug;
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -41,9 +46,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private GoogleApiClient mGoogleApiClient;
+    public int hour, min;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         drugLoader = new DrugLoader(this);
         drugLoader.loadDrugs();
@@ -52,8 +59,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-
         setContentView(R.layout.activity_main);
+
+        //set background according the time period
+        getTimeFromAndroid();
+        setBackground();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.OverviewFAB);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +124,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    //function to get current time on android
+    public void getTimeFromAndroid() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Calendar cal = Calendar.getInstance();
+            hour = cal.get(Calendar.HOUR_OF_DAY);
+        } else {
+            Date dt = new Date();
+            hour = dt.getHours();
+        }
+    }
+
+    //set backGround for main actiivity
+    public void setBackground() {
+        if (hour >= 0 && hour < 3) {
+            //latenight
+            this.findViewById(android.R.id.content).setBackgroundResource(R.drawable.background_ln);
+            this.findViewById(android.R.id.content).getBackground().setColorFilter(null);
+        } else if (hour >= 3 && hour < 12) {
+            //morning
+            this.findViewById(android.R.id.content).setBackgroundResource(R.drawable.background_m);
+            this.findViewById(android.R.id.content).getBackground().setColorFilter(null);
+        } else if (hour >= 12 && hour < 17) {
+            //afternoon
+            this.findViewById(android.R.id.content).setBackgroundResource(R.drawable.background_a);
+            this.findViewById(android.R.id.content).getBackground().setColorFilter(null);
+        } else if (hour >= 17 && hour < 21) {
+            //evening
+            this.findViewById(android.R.id.content).setBackgroundResource(R.drawable.background_e);
+            this.findViewById(android.R.id.content).getBackground().setColorFilter(null);
+        } else if (hour >= 21 && hour <= 24) {
+            //latenight
+            this.findViewById(android.R.id.content).setBackgroundResource(R.drawable.background_ln);
+            this.findViewById(android.R.id.content).getBackground().setColorFilter(null);
+        }
+    }
+
     @Override
     public void onStop() {
         super.onStop();
@@ -124,11 +171,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onResume() {
-
+        super.onResume();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setBackground();
 
-        super.onResume();
     }
 
     public void swapFragment(Fragment newFragment) {

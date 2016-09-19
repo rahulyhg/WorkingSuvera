@@ -1,9 +1,13 @@
 package com.suveraapp.onload;
 
+import android.annotation.TargetApi;
+import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.view.WindowManager;
 
 import com.suveraapp.R;
@@ -15,6 +19,8 @@ import com.suveraapp.objects.Schedule;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 
 public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugListener, AddReason.AddReasonListener,
         SelectInterval.SelectIntervalListener, SelectSpecDays.Specific_daysListener, AddSchedule.AddScheduleListener {
@@ -27,11 +33,12 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
     private Interval interval = new Interval(false);
     private Days days = new Days(everyday);
     private ArrayList<Schedule> mySchedule = new ArrayList<>();
-
+    public int hour;
 
     //for storing drug data to save in realm
     private Bundle bundle;
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +48,54 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        //set background according the time period
+        getTimeFromAndroid();
+        setBackground();
+
         //start on select drug
         swapFragment(new SelectDrug());
+    }
+
+    //function to get current time on android
+    public void getTimeFromAndroid() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Calendar cal = Calendar.getInstance();
+            hour = cal.get(Calendar.HOUR_OF_DAY);
+        } else {
+            Date dt = new Date();
+            hour = dt.getHours();
+        }
+    }
+
+    //function to set Background of fragments
+    public void setBackground() {
+        if (hour >= 0 && hour < 3) {
+            //latenight
+            this.findViewById(android.R.id.content).setBackgroundResource(R.drawable.background_ln);
+            this.findViewById(android.R.id.content).getBackground().
+                    setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.tint), PorterDuff.Mode.MULTIPLY);
+        } else if (hour >= 3 && hour < 12) {
+            //morning
+            this.findViewById(android.R.id.content).setBackgroundResource(R.drawable.background_m);
+            this.findViewById(android.R.id.content).getBackground().
+                    setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.tint), PorterDuff.Mode.MULTIPLY);
+
+        } else if (hour >= 12 && hour < 17) {
+            //afternoon
+            this.findViewById(android.R.id.content).setBackgroundResource(R.drawable.background_a);
+            this.findViewById(android.R.id.content).getBackground().
+                    setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.tint), PorterDuff.Mode.MULTIPLY);
+        } else if (hour >= 17 && hour < 21) {
+            //evening
+            this.findViewById(android.R.id.content).setBackgroundResource(R.drawable.background_e);
+            this.findViewById(android.R.id.content).getBackground().
+                    setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.tint), PorterDuff.Mode.MULTIPLY);
+        } else if (hour >= 21 && hour <= 24) {
+            //latenight
+            this.findViewById(android.R.id.content).setBackgroundResource(R.drawable.background_ln);
+            this.findViewById(android.R.id.content).getBackground().
+                    setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.tint), PorterDuff.Mode.MULTIPLY);
+        }
     }
 
     //function to set each element in boolean array true (for default choice of everyday)
@@ -50,6 +103,14 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
         boolean[] toFill = new boolean[a.length];
         Arrays.fill(toFill, true);
         return toFill;
+    }
+
+    //to move from one sub fragment to another
+    public void swapFragment(Fragment newFragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override
@@ -117,11 +178,10 @@ public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugLi
         swapFragment(overview);
     }
 
-    //to move from one sub fragment to another
-    public void swapFragment(Fragment newFragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, newFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+    @Override
+    public void onResume(){
+        super.onResume();
+        getTimeFromAndroid();
+        setBackground();
     }
 }
