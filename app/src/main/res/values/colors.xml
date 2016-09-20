@@ -6,4 +6,5 @@
     <color name="toolbarTransparent">#00000000</color>
     <color name="daytext">#ff5722</color>
     <color name="tint">#80323232</color>
+    <color name="white">#ffffff</color>
 </resources>

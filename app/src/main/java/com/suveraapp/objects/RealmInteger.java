@@ -3,6 +3,7 @@ package com.suveraapp.objects;
 import io.realm.RealmObject;
 
 public class RealmInteger extends RealmObject{
+
     public int getDay() {
         return day;
     }

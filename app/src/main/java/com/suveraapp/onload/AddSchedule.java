@@ -39,7 +39,7 @@ public class AddSchedule extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_schedule, container, false);
 
         final Calendar calendar = Calendar.getInstance();
-        schedule = new Schedule(0, 0); //create new schedule object
+        schedule = new Schedule( 0, 0); //create new schedule object
         // find NumberPicker
         // numberPicker = (NumberPicker) view.findViewById(R.id.numberPicker);
         // numberPicker.setMaxValue(5);
@@ -72,7 +72,7 @@ public class AddSchedule extends Fragment {
                         }
 
                         //update medicine amount and time in schedule object
-                        schedule.setDosage(Long.valueOf(editText.getText().toString()));
+                        schedule.setDosage(Integer.valueOf(editText.getText().toString()));
                         schedule.setTime(calendar.getTimeInMillis());
 
                         //pass through the schedule object if a medicine amount more than 0 is selected

@@ -36,7 +36,7 @@ public class AddReason extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_reason, container, false);
         if (getArguments() != null) {
-            DrugId = getArguments().getInt("DrugID");
+            DrugId = getArguments().getInt("dID");
         }
 
         //splitting the drug name into an array of strings

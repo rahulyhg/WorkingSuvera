@@ -4,14 +4,18 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class Schedule extends RealmObject implements Parcelable {
 
-    private long dosage; //dosage of medication needed to take
+
+    private int dosage; //dosage of medication needed to take
     private long time; // time for alarm stored in milliseconds
 
-    public Schedule(){}
-    public Schedule(int dosage, long time) {
+    public Schedule() {
+    }
+
+    public Schedule (int dosage, long timge){
         this.dosage = dosage;
         this.time = time;
     }
@@ -30,13 +34,13 @@ public class Schedule extends RealmObject implements Parcelable {
         public Schedule[] newArray(int i) {
             return new Schedule[0];
         }
-    };
+      };
 
     public long getDosage() {
         return dosage;
     }
 
-    public void setDosage(Long dosage) {
+    public void setDosage(int dosage) {
         this.dosage = dosage;
     }
 

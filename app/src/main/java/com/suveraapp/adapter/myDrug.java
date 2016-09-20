@@ -6,6 +6,7 @@ import com.suveraapp.objects.Interval;
 import com.suveraapp.objects.RealmInteger;
 import com.suveraapp.objects.Reason;
 import com.suveraapp.objects.Schedule;
+import com.suveraapp.objects.ScheduleList;
 
 import java.util.ArrayList;
 
@@ -18,19 +19,15 @@ public class MyDrug extends RealmObject {
     //my drug stuff for realm database
     private String myDrugName, myDrugUrl, myReason;
     private boolean myInterval;
-    //private boolean[] myDays;
-
     private RealmList<RealmInteger> myDays;
-    private RealmList<Schedule> mySchedule;
 
     @PrimaryKey
     private int myDrugID;
 
-
     public MyDrug() {
     }
 
-    public MyDrug(Drug drug, Reason reason, Interval interval, Days days, ArrayList<Schedule> schedule) {
+    public MyDrug(Drug drug, Reason reason, Interval interval, Days days) {
         myDrugName = drug.getName();
         myDrugID = drug.getId();
         myDrugUrl = drug.getUrl();
@@ -53,13 +50,6 @@ public class MyDrug extends RealmObject {
             }
             myDays.add(i, tempInteger);
         }
-
-        //to create a realmlist of the schedule
-        mySchedule = new RealmList<>();
-        for (Schedule schedule1 : schedule) {
-            mySchedule.add(schedule1);
-        }
-
     }
 
     public boolean isMyInterval() {
@@ -94,13 +84,6 @@ public class MyDrug extends RealmObject {
         this.myDrugUrl = myDrugUrl;
     }
 
-    public RealmList<Schedule> getMySchedule() {
-        return mySchedule;
-    }
-
-    public void setMySchedule(RealmList<Schedule> mySchedule) {
-        this.mySchedule = mySchedule;
-    }
 
     public RealmList<RealmInteger> getMyDays() {
         return myDays;

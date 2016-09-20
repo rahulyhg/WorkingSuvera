@@ -44,6 +44,7 @@
     <string name="logout">Log out</string>
     <string name="hey">Hey</string>
     <string name="welc">Welcome Back, </string>
+    <string name="newDrug">"Lets add a new reminder first!"</string>
 
     <string name="mMeds">Here are your <b>morning</b> meds:</string>
     <string name="aMeds">Here are your <b>afternoon</b> meds:</string>
@@ -59,6 +60,7 @@
     <string name="itSat">It\'s Saturday, today.</string>
     <string name="contact">contact@suvera.co.uk</string>
     <string name="drug">Drug</string>
+    <string name="meds">My Meds</string>
 
 
 </resources>

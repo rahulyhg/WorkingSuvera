@@ -19,12 +19,14 @@ import com.suveraapp.objects.Days;
 import com.suveraapp.objects.Interval;
 import com.suveraapp.objects.Reason;
 import com.suveraapp.objects.Schedule;
+import com.suveraapp.objects.ScheduleList;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmList;
 
 
 public class Overview extends Fragment {
@@ -34,6 +36,7 @@ public class Overview extends Fragment {
     private Interval interval;
     private Days days;
     private ArrayList<Schedule> drugSchedule;
+    private ScheduleList dSchedule = new ScheduleList();
     private List<String> arrList = new ArrayList<>();
     private MyDrug myDrug;
     private String[] name;
@@ -64,6 +67,7 @@ public class Overview extends Fragment {
         boolean[] drugDays = b.getBooleanArray("dDays");
         drugSchedule = b.getParcelableArrayList("dSchedule");
 
+
         //create an array of the drugname just for confirmation toast
         if (drugName != null) {
             name = drugName.split(" ");
@@ -83,6 +87,7 @@ public class Overview extends Fragment {
                 arrList.add("• Dosage: " + String.valueOf(schedule.getDosage()) +
                         " • Time: " + formatTime(schedule.getTime()));
             }
+            dSchedule = new ScheduleList(drugID,drugSchedule);
         }
 
 
@@ -106,13 +111,11 @@ public class Overview extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //this part creates / updates the RealmObject in the realm database
-                RealmConfiguration configuration = new RealmConfiguration.Builder(getActivity()).build();
-                Realm.setDefaultConfiguration(configuration);
                 Realm realm = Realm.getDefaultInstance();
-                myDrug = new MyDrug(select, reason, interval, days, drugSchedule);
+                myDrug = new MyDrug(select, reason, interval, days);
                 realm.beginTransaction();
                 realm.copyToRealmOrUpdate(myDrug);
+                realm.copyToRealmOrUpdate(dSchedule);
                 realm.commitTransaction();
                 realm.close();
                 Toast.makeText(getContext(), name[0] + " has been successfully added to your reminders.", Toast.LENGTH_LONG).show();

@@ -2,35 +2,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/rc_shape"
     android:orientation="horizontal"
     android:padding="16dp">
 
-            <TextView
-                android:id="@+id/header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:text="@string/drug"
-                android:textColor="@color/colorAccent"
-                android:textSize="30sp"
-                android:textAlignment="center" />
+    <TextView
+        android:id="@+id/rc_drug"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:alpha="0.75"
+        android:text="@string/drug"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/dosage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="@string/dosage"
-                android:textColor="@color/colorAccent"
-                android:textSize="30sp"
-                android:textAlignment="center" />
+    <TextView
+        android:id="@+id/rc_dosage"
+        android:layout_width="100sp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:alpha="0.75"
+        android:text="@string/dosage"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
 
-            <CheckBox
-                android:id="@+id/checkBox"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_weight="2"
-                android:checked="false"
-                android:text="New CheckBox" />
+    <CheckBox
+        android:id="@+id/rc_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:checked="false" />
 
 </LinearLayout>
