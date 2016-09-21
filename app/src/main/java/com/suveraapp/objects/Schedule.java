@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 
 public class Schedule extends RealmObject implements Parcelable {
 
@@ -15,7 +14,7 @@ public class Schedule extends RealmObject implements Parcelable {
     public Schedule() {
     }
 
-    public Schedule (int dosage, long timge){
+    public Schedule (int dosage, long time){
         this.dosage = dosage;
         this.time = time;
     }

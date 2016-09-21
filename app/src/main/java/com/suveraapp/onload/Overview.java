@@ -12,7 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.suveraapp.R;
-import com.suveraapp.adapter.MyDrug;
+import com.suveraapp.objects.MyDrug;
 import com.suveraapp.drug.Drug;
 import com.suveraapp.drug.DrugType;
 import com.suveraapp.objects.Days;
@@ -25,8 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
-import io.realm.RealmList;
 
 
 public class Overview extends Fragment {

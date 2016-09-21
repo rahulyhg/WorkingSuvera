@@ -17,7 +17,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.facebook.stetho.Stetho;
@@ -30,18 +29,12 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.suveraapp.adapter.MyDrug;
 import com.suveraapp.drug.DrugLoader;
 import com.suveraapp.onload.AddDrug;
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 
 import java.util.Calendar;
 import java.util.Date;
-
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
-import io.realm.RealmResults;
-import io.realm.Sort;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, ResultCallback<GoogleSignInResult> {

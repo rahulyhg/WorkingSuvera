@@ -1,4 +1,4 @@
-package com.suveraapp.adapter;
+package com.suveraapp.objects;
 
 import com.suveraapp.drug.Drug;
 import com.suveraapp.objects.Days;

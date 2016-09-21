@@ -12,16 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.suveraapp.adapter.MyDrug;
+import com.suveraapp.objects.MyDrug;
 import com.suveraapp.adapter.MyDrugAdapter;
 import com.suveraapp.objects.Schedule;
 import com.suveraapp.objects.ScheduleList;
+import com.suveraapp.objects.UpdateResults;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import io.realm.Realm;
-import io.realm.RealmChangeListener;
 import io.realm.RealmList;
 import io.realm.RealmResults;
 
@@ -35,7 +36,8 @@ public class HomeScreen extends Fragment {
     private String myDrugname = "myDrugName";
     private MyDrugAdapter myDrugAdapter;
     private RealmResults<MyDrug> results;
-    private RealmList<Schedule> schedules;
+    private RealmResults<ScheduleList> mSchedules;
+    private RealmList<Schedule> mSchedule;
     private RealmResults<ScheduleList> scheduleLists;
 
     public HomeScreen() {
@@ -55,32 +57,105 @@ public class HomeScreen extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_home_screen, container, false);
         dayOfWeek = (TextView) view.findViewById(R.id.day);
         timeOfDay = (TextView) view.findViewById(R.id.timeOfDay);
-
-        //show recylcer view of drugs
         mRecylcerview = (RecyclerView) view.findViewById(R.id.rc_view);
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        mRecylcerview.setLayoutManager(manager);
-        mRealm = Realm.getDefaultInstance();
-        results = mRealm.where(MyDrug.class).findAll();
-        myDrugAdapter = new MyDrugAdapter(getContext(), results);
-        mRecylcerview.setAdapter(new MyDrugAdapter(getContext(), results));
 
-        //set text to the time of the day, i.e. morning, evening or afternoon
-        //day of the week and background to correspond to them
-        getTimeFromAndroid();
-        setDay(dayOfWeek);
-        setPeriod(timeOfDay);
+        updateAll(); //update the view to show the required drugs
         return view;
     }
 
-    //update adapter when new item added
-    private RealmChangeListener realmChangeListener = new RealmChangeListener() {
-        @Override
-        public void onChange(Object element) {
-            myDrugAdapter.update(results);
-        }
-    };
+    public ArrayList<UpdateResults> getCurrentList(RealmResults<MyDrug> drugs) {
+        ArrayList<UpdateResults> resultses = new ArrayList<>();
 
+        for (int a = 0; a < drugs.size(); a++) {
+            MyDrug myDrug = drugs.get(a);
+            String[] name = myDrug.getMyDrugName().split(" ");
+
+            mSchedules = mRealm.where(ScheduleList.class).equalTo("myDrugID", myDrug.getMyDrugID()).findAll();
+
+            //query for the drugs that are within this time period
+            //eg, show all morning drugs (drugs between 3am and 12pm)
+            mSchedule = new RealmList<>();
+
+            for (int j = 0; j < mSchedules.size(); j++) {
+                //traversing through schedule list
+                ScheduleList myScheduleList = mSchedules.get(j);
+
+                //finding each schedule item in schedule list
+                mSchedule = myScheduleList.getList();
+
+                for (int i = 0; i < mSchedule.size(); i++) {
+
+                    UpdateResults updateResults = new UpdateResults();
+                    long time = mSchedule.get(i).getTime();
+                    long dosage = mSchedule.get(i).getDosage();
+                    long myHour = ((time / (1000 * 60 * 60)) % 24);
+
+                    if (hour >= 0 && hour < 3) {
+                        //latenight
+                        if (myHour >= 0 && myHour < 3) {
+                            updateResults.setMyDrugID(myDrug.getMyDrugID());
+                            updateResults.setDosage(dosage);
+                            updateResults.setName(name[0]);
+                            resultses.add(updateResults);
+                        }
+                    } else if (hour >= 3 && hour < 12) {
+                        //morning
+                        if (myHour >= 3 && myHour < 12) {
+                            updateResults.setMyDrugID(myDrug.getMyDrugID());
+                            updateResults.setDosage(dosage);
+                            updateResults.setName(name[0]);
+                            resultses.add(updateResults);
+                        }
+                    } else if (hour >= 12 && hour < 17) {
+                        //afternoon
+                        if (myHour >= 12 && myHour < 17) {
+                            updateResults.setMyDrugID(myDrug.getMyDrugID());
+                            updateResults.setDosage(dosage);
+                            updateResults.setName(name[0]);
+                            resultses.add(updateResults);
+                        }
+                    } else if (hour >= 17 && hour < 21) {
+                        //evening
+                        if (myHour >= 17 && myHour < 21) {
+                            updateResults.setMyDrugID(myDrug.getMyDrugID());
+                            updateResults.setDosage(dosage);
+                            updateResults.setName(name[0]);
+                            resultses.add(updateResults);
+                        }
+                    } else if (hour >= 21 && hour <= 24) {
+                        //latenight
+                        if (myHour >= 21 && myHour < 24) {
+                            updateResults.setMyDrugID(myDrug.getMyDrugID());
+                            updateResults.setDosage(dosage);
+                            updateResults.setName(name[0]);
+                            resultses.add(updateResults);
+                        }
+                    }
+                }
+            }
+        }
+        return resultses;
+    }
+
+
+    //update view and show the current drugs that need to be taken
+    public void updateAll(){
+        getTimeFromAndroid();//get current time
+        mRealm = Realm.getDefaultInstance(); //get Realm database
+        results = mRealm.where(MyDrug.class).findAll(); //find all drugs in database
+        ArrayList<UpdateResults> currentList; //create a list to hold the drugs to be shown right now
+        currentList = getCurrentList(results); //pass the drugs and find only the ones that need to be shone
+        myDrugAdapter = new MyDrugAdapter(getContext(), currentList); //create new adapter object using this list
+
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        mRecylcerview.setLayoutManager(manager); //set the recycler view to a linear layout
+        mRecylcerview.setAdapter(myDrugAdapter); //set the recycler adapter to display items
+
+        //set text to the time of the day, i.e. morning, evening or afternoon
+        //day of the week and background to correspond to them
+        setDay(dayOfWeek);
+        setPeriod(timeOfDay);
+    }
 
     //sets day of week for textview
     public void setDay(TextView dayOfWeek) {
@@ -151,21 +226,13 @@ public class HomeScreen extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        getTimeFromAndroid();
-        setDay(dayOfWeek);
-        setPeriod(timeOfDay);
-        myDrugAdapter = new MyDrugAdapter(getContext(), results);
-        mRecylcerview.setAdapter(new MyDrugAdapter(getContext(), results));
+        updateAll();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        getTimeFromAndroid();
-        setDay(dayOfWeek);
-        setPeriod(timeOfDay);
-        myDrugAdapter = new MyDrugAdapter(getContext(), results);
-        mRecylcerview.setAdapter(new MyDrugAdapter(getContext(), results));
+        updateAll();
     }
 
     @Override
