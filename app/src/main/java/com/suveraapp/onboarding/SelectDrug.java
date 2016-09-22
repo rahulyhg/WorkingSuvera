@@ -1,4 +1,4 @@
-package com.suveraapp.onload;
+package com.suveraapp.onboarding;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,17 +17,13 @@ import android.widget.Toast;
 
 import com.suveraapp.MainActivity;
 import com.suveraapp.R;
-import com.suveraapp.drug.Drug;
 import com.suveraapp.drug.DrugType;
+import com.suveraapp.objects.Drug;
 
 public class SelectDrug extends Fragment {
     private AutoCompleteTextView txtDrugName;
     private SelectDrugListener parentListener;
 
-
-    public interface SelectDrugListener {
-        void drugSelected(Drug selection);
-    }
 
     public SelectDrug() {
     }
@@ -131,5 +127,9 @@ public class SelectDrug extends Fragment {
     public void onDetach() {
         super.onDetach();
         parentListener = null;
+    }
+
+    public interface SelectDrugListener {
+        void drugSelected(Drug selection);
     }
 }

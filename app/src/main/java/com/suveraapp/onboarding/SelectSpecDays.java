@@ -1,4 +1,4 @@
-package com.suveraapp.onload;
+package com.suveraapp.onboarding;
 
 
 import android.content.Context;
@@ -33,13 +33,13 @@ public class SelectSpecDays extends Fragment {
         View view = inflater.inflate(R.layout.fragment_specific_days, container, false);
 
         //find checkboxes
+        sun = (CheckBox) view.findViewById(R.id.sunday);
         mon = (CheckBox) view.findViewById(R.id.monday);
         tue = (CheckBox) view.findViewById(R.id.tuesday);
         wed = (CheckBox) view.findViewById(R.id.wednesday);
         thu = (CheckBox) view.findViewById(R.id.thursday);
         fri = (CheckBox) view.findViewById(R.id.friday);
         sat = (CheckBox) view.findViewById(R.id.saturday);
-        sun = (CheckBox) view.findViewById(R.id.sunday);
 
         //find button
         ImageButton btnNext = (ImageButton) view.findViewById(R.id.btnConfirmDays);
@@ -49,13 +49,13 @@ public class SelectSpecDays extends Fragment {
             @Override
             public void onClick(View view) {
                 //set each element in the boolean array equivalent to the checked boxes
-                specDays[0] = mon.isChecked();
-                specDays[1] = tue.isChecked();
-                specDays[2] = wed.isChecked();
-                specDays[3] = thu.isChecked();
-                specDays[4] = fri.isChecked();
-                specDays[5] = sat.isChecked();
-                specDays[6] = sun.isChecked();
+                specDays[0] = sun.isChecked();
+                specDays[1] = mon.isChecked();
+                specDays[2] = tue.isChecked();
+                specDays[3] = wed.isChecked();
+                specDays[4] = thu.isChecked();
+                specDays[5] = fri.isChecked();
+                specDays[6] = sat.isChecked();
 
 
                 //check if any of the boxes have been selected to validate a day has been selected
@@ -93,19 +93,17 @@ public class SelectSpecDays extends Fragment {
         parentListener = null;
     }
 
-    public interface Specific_daysListener {
-        void daysSelected(Days days);
-    }
-
     //checks if given boolean array contains a true value
     public boolean containsTrue(boolean[] array) {
-
         for (boolean val : array) {
             if (val)
                 return true;
         }
-
         return false;
+    }
+
+    public interface Specific_daysListener {
+        void daysSelected(Days days);
     }
 
 

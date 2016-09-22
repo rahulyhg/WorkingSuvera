@@ -1,4 +1,4 @@
-package com.suveraapp;
+package com.suveraapp.navigation;
 
 
 import android.content.Intent;
@@ -24,6 +24,7 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.suveraapp.R;
 
 public class ProfileScreen extends Fragment implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
     private GoogleApiClient mGoogleApiClient;

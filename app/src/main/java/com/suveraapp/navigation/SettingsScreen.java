@@ -1,4 +1,4 @@
-package com.suveraapp;
+package com.suveraapp.navigation;
 
 
 import android.os.Bundle;
@@ -7,10 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class HelpScreen extends Fragment {
+import com.suveraapp.R;
 
+public class SettingsScreen extends Fragment {
 
-    public HelpScreen() {
+    public SettingsScreen() {
         // Required empty public constructor
     }
 
@@ -18,8 +19,8 @@ public class HelpScreen extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_help_screen, container, false);
+
+        return inflater.inflate(R.layout.fragment_settings_screen, container, false);
     }
 
 }

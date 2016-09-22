@@ -1,4 +1,4 @@
-package com.suveraapp;
+package com.suveraapp.navigation;
 
 import android.content.Context;
 import android.os.Build;
@@ -12,10 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.suveraapp.objects.MyDrug;
+import com.suveraapp.R;
 import com.suveraapp.adapter.MyDrugAdapter;
+import com.suveraapp.objects.MyDrug;
+import com.suveraapp.objects.RealmInteger;
 import com.suveraapp.objects.Schedule;
-import com.suveraapp.objects.ScheduleList;
 import com.suveraapp.objects.UpdateResults;
 
 import java.util.ArrayList;
@@ -30,15 +31,14 @@ public class HomeScreen extends Fragment {
 
     private TextView dayOfWeek;
     private TextView timeOfDay;
-    private int hour, min, day;
+    private int hour, day;
     private RecyclerView mRecylcerview;
     private Realm mRealm;
-    private String myDrugname = "myDrugName";
     private MyDrugAdapter myDrugAdapter;
     private RealmResults<MyDrug> results;
-    private RealmResults<ScheduleList> mSchedules;
     private RealmList<Schedule> mSchedule;
-    private RealmResults<ScheduleList> scheduleLists;
+    private RealmList<RealmInteger> mDay;
+
 
     public HomeScreen() {
         // Required empty public constructor
@@ -64,82 +64,84 @@ public class HomeScreen extends Fragment {
     }
 
     public ArrayList<UpdateResults> getCurrentList(RealmResults<MyDrug> drugs) {
-        ArrayList<UpdateResults> resultses = new ArrayList<>();
+        ArrayList<UpdateResults> currentDrugs = new ArrayList<>();
 
         for (int a = 0; a < drugs.size(); a++) {
-            MyDrug myDrug = drugs.get(a);
-            String[] name = myDrug.getMyDrugName().split(" ");
-
-            mSchedules = mRealm.where(ScheduleList.class).equalTo("myDrugID", myDrug.getMyDrugID()).findAll();
 
             //query for the drugs that are within this time period
             //eg, show all morning drugs (drugs between 3am and 12pm)
-            mSchedule = new RealmList<>();
+            MyDrug myDrug = drugs.get(a);
+            String[] name = myDrug.getMyDrugName().split(" ");
+            mDay = myDrug.getMyDays();
 
-            for (int j = 0; j < mSchedules.size(); j++) {
-                //traversing through schedule list
-                ScheduleList myScheduleList = mSchedules.get(j);
+            //finding each schedule item in schedule list
+            for (int b = 0; b < mDay.size(); b++) {
+                RealmInteger savedDay = mDay.get(b);
+                int myDay = savedDay.getDay();
 
-                //finding each schedule item in schedule list
-                mSchedule = myScheduleList.getList();
+                //check if the current day is equal to the day in the days array
+                //and that this day has also been selected
+                if ((day == b+1) && (myDay==1)) {
+                    mSchedule = myDrug.getMySchedule();
 
-                for (int i = 0; i < mSchedule.size(); i++) {
+                    //check each individual schedule dosage and time
+                    for (int c = 0; c < mSchedule.size(); c++) {
+                        Schedule schedule = mSchedule.get(c);
+                        UpdateResults updateResults = new UpdateResults();
 
-                    UpdateResults updateResults = new UpdateResults();
-                    long time = mSchedule.get(i).getTime();
-                    long dosage = mSchedule.get(i).getDosage();
-                    long myHour = ((time / (1000 * 60 * 60)) % 24);
+                        //change the schedule time (which is saved as long)
+                        //into a 24 hour time integer
+                        String myTime = formatTime(schedule.getTime());
+                        String[] time = myTime.split(":");
+                        int myHour = Integer.parseInt(time[0]);
 
-                    if (hour >= 0 && hour < 3) {
-                        //latenight
-                        if (myHour >= 0 && myHour < 3) {
-                            updateResults.setMyDrugID(myDrug.getMyDrugID());
-                            updateResults.setDosage(dosage);
-                            updateResults.setName(name[0]);
-                            resultses.add(updateResults);
-                        }
-                    } else if (hour >= 3 && hour < 12) {
-                        //morning
-                        if (myHour >= 3 && myHour < 12) {
-                            updateResults.setMyDrugID(myDrug.getMyDrugID());
-                            updateResults.setDosage(dosage);
-                            updateResults.setName(name[0]);
-                            resultses.add(updateResults);
-                        }
-                    } else if (hour >= 12 && hour < 17) {
-                        //afternoon
-                        if (myHour >= 12 && myHour < 17) {
-                            updateResults.setMyDrugID(myDrug.getMyDrugID());
-                            updateResults.setDosage(dosage);
-                            updateResults.setName(name[0]);
-                            resultses.add(updateResults);
-                        }
-                    } else if (hour >= 17 && hour < 21) {
-                        //evening
-                        if (myHour >= 17 && myHour < 21) {
-                            updateResults.setMyDrugID(myDrug.getMyDrugID());
-                            updateResults.setDosage(dosage);
-                            updateResults.setName(name[0]);
-                            resultses.add(updateResults);
-                        }
-                    } else if (hour >= 21 && hour <= 24) {
-                        //latenight
-                        if (myHour >= 21 && myHour < 24) {
-                            updateResults.setMyDrugID(myDrug.getMyDrugID());
-                            updateResults.setDosage(dosage);
-                            updateResults.setName(name[0]);
-                            resultses.add(updateResults);
+                        if (hour >= 0 && hour < 3) {
+                            //latenight
+                            if (myHour >= 0 && myHour < 3) {
+                                updateResults.setName(name[0]);
+                                updateResults.setDosage(schedule.getDosage());
+                                currentDrugs.add(updateResults);
+                            }
+                        } else if (hour >= 3 && hour < 12) {
+                            //morning
+                            if (myHour >= 3 && myHour < 12) {
+                                updateResults.setName(name[0]);
+                                updateResults.setDosage(schedule.getDosage());
+                                currentDrugs.add(updateResults);
+                            }
+                        } else if (hour >= 12 && hour < 17) {
+                            //afternoon
+                            if (myHour >= 12 && myHour < 17) {
+                                updateResults.setName(name[0]);
+                                updateResults.setDosage(schedule.getDosage());
+                                currentDrugs.add(updateResults);
+                            }
+                        } else if (hour >= 17 && hour < 21) {
+                            //evening
+                            if (myHour >= 17 && myHour < 21) {
+                                updateResults.setName(name[0]);
+                                updateResults.setDosage(schedule.getDosage());
+                                currentDrugs.add(updateResults);
+                            }
+                        } else if (hour >= 21 && hour <= 24) {
+                            //latenight
+                            if (myHour >= 21 && myHour < 24) {
+                                updateResults.setName(name[0]);
+                                updateResults.setDosage(schedule.getDosage());
+                                currentDrugs.add(updateResults);
+                            }
                         }
                     }
+
                 }
             }
         }
-        return resultses;
+        return currentDrugs;
     }
 
 
     //update view and show the current drugs that need to be taken
-    public void updateAll(){
+    public void updateAll() {
         getTimeFromAndroid();//get current time
         mRealm = Realm.getDefaultInstance(); //get Realm database
         results = mRealm.where(MyDrug.class).findAll(); //find all drugs in database
@@ -213,14 +215,17 @@ public class HomeScreen extends Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Calendar cal = Calendar.getInstance();
             hour = cal.get(Calendar.HOUR_OF_DAY);
-            min = cal.get(Calendar.MINUTE);
             day = cal.get(Calendar.DAY_OF_WEEK);
         } else {
             Date dt = new Date();
             hour = dt.getHours();
-            min = dt.getMinutes();
             day = dt.getDay();
         }
+    }
+
+    //convert milliseconds to hours and minutes
+    public String formatTime(long time) {
+        return String.format("%1$tH:%1$tM", time);
     }
 
     @Override

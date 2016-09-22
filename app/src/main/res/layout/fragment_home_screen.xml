@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.suveraapp.HomeScreen">
+    tools:context=".navigation.HomeScreen">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,10 +46,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginTop="20dp"
             android:layout_marginBottom="85dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
             />
     </LinearLayout>
 </RelativeLayout>

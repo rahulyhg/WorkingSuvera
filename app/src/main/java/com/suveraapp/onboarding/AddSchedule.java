@@ -1,4 +1,4 @@
-package com.suveraapp.onload;
+package com.suveraapp.onboarding;
 
 
 import android.content.Context;
@@ -106,14 +106,14 @@ public class AddSchedule extends Fragment {
         parentListener = null;
     }
 
-    public interface AddScheduleListener {
-        void scheduleSelected(Schedule schedule);
-    }
-
     @Override
     public void onResume() {
         super.onResume();
         schedule = new Schedule(0, 0);
+    }
+
+    public interface AddScheduleListener {
+        void scheduleSelected(Schedule schedule);
     }
 
 }

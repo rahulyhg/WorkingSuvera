@@ -1,4 +1,4 @@
-package com.suveraapp.onload;
+package com.suveraapp.onboarding;
 
 import android.annotation.TargetApi;
 import android.graphics.PorterDuff;
@@ -11,8 +11,8 @@ import android.support.v4.content.ContextCompat;
 import android.view.WindowManager;
 
 import com.suveraapp.R;
-import com.suveraapp.drug.Drug;
 import com.suveraapp.objects.Days;
+import com.suveraapp.objects.Drug;
 import com.suveraapp.objects.Interval;
 import com.suveraapp.objects.Reason;
 import com.suveraapp.objects.Schedule;
@@ -25,16 +25,14 @@ import java.util.Date;
 public class AddDrug extends FragmentActivity implements SelectDrug.SelectDrugListener, AddReason.AddReasonListener,
         SelectInterval.SelectIntervalListener, SelectSpecDays.Specific_daysListener, AddSchedule.AddScheduleListener {
 
+    public int hour;
     private boolean[] everyday = new boolean[7];
-
     //represents data that is needed from each sub fragment
     private Drug select = new Drug(0, null, null, null);
     private Reason reason = new Reason(null);
     private Interval interval = new Interval(false);
     private Days days = new Days(everyday);
     private ArrayList<Schedule> mySchedule = new ArrayList<>();
-    public int hour;
-
     //for storing drug data to save in realm
     private Bundle bundle;
 

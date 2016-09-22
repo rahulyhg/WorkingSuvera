@@ -3,6 +3,8 @@ package com.suveraapp.drug;
 import android.content.Context;
 import android.util.Log;
 
+import com.suveraapp.objects.Drug;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,9 +14,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Created by William Meaton on 8/17/2016.
- */
 public class DrugLoader {
 
     private ArrayList<Drug> drugsList = new ArrayList<>();
@@ -67,6 +66,7 @@ public class DrugLoader {
                 }
 //                Log.d("New Drug", name);
                 //add the new drug
+              //  String [] newN = name.split(" ");
                 drugsList.add(new Drug(i, name, type, url));
             }
             Log.d("Drug Count", String.valueOf(drugsList.size()));

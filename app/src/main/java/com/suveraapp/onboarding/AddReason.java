@@ -1,4 +1,4 @@
-package com.suveraapp.onload;
+package com.suveraapp.onboarding;
 
 import android.content.Context;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.suveraapp;
+package com.suveraapp.navigation;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -38,12 +38,12 @@ public class Profile implements OnCompleteListener<AuthResult> {
         return logged;
     }
 
-    public boolean isAuthenticated() {
-        return authenticated;
-    }
-
     public void setLoggedIn(boolean b) {
         this.logged = b;
+    }
+
+    public boolean isAuthenticated() {
+        return authenticated;
     }
 
     public String getFamilyName() {

@@ -30,7 +30,12 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.suveraapp.drug.DrugLoader;
-import com.suveraapp.onload.AddDrug;
+import com.suveraapp.navigation.HelpScreen;
+import com.suveraapp.navigation.HomeScreen;
+import com.suveraapp.navigation.Profile;
+import com.suveraapp.navigation.ProfileScreen;
+import com.suveraapp.navigation.SettingsScreen;
+import com.suveraapp.onboarding.AddDrug;
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 
 import java.util.Calendar;
@@ -57,8 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setContentView(R.layout.activity_main);
 
-        //set background according the time period
-        getTimeFromAndroid();
+        //set background using the time period
         setBackground();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -77,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        //stetho for checking the realm database
+        //stetho for checking the realm database by chrome://inspect
         Stetho.initialize(
                 Stetho.newInitializerBuilder(this)
                         .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
@@ -129,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     //set backGround for main actiivity
     public void setBackground() {
+        getTimeFromAndroid();
         if (hour >= 0 && hour < 3) {
             //latenight
             this.findViewById(android.R.id.content).setBackgroundResource(R.drawable.background_ln);
@@ -201,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            finish();
         }
     }
 

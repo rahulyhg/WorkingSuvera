@@ -1,8 +1,9 @@
 package com.suveraapp.objects;
 
-import io.realm.RealmObject;
+public class UpdateResults  {
 
-public class UpdateResults extends RealmObject {
+    private String name;
+    private long dosage;
 
     public String getName() {
         return name;
@@ -19,17 +20,5 @@ public class UpdateResults extends RealmObject {
     public void setDosage(long dosage) {
         this.dosage = dosage;
     }
-
-    public int getMyDrugID() {
-        return myDrugID;
-    }
-
-    public void setMyDrugID(int myDrugID) {
-        this.myDrugID = myDrugID;
-    }
-
-    private String name;
-    private long dosage;
-    private int myDrugID;
 
 }

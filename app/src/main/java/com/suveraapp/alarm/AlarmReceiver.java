@@ -1,4 +1,4 @@
-package com.suveraapp;
+package com.suveraapp.alarm;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

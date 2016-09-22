@@ -1,8 +1,7 @@
-package com.suveraapp.drug;
+package com.suveraapp.objects;
 
-/**
- * Created by williammeaton on 16/08/2016.
- */
+import com.suveraapp.drug.DrugType;
+
 public class Drug {
 
     private DrugType type;

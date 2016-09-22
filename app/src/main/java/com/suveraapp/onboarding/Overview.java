@@ -1,4 +1,4 @@
-package com.suveraapp.onload;
+package com.suveraapp.onboarding;
 
 
 import android.os.Bundle;
@@ -12,14 +12,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.suveraapp.R;
-import com.suveraapp.objects.MyDrug;
-import com.suveraapp.drug.Drug;
 import com.suveraapp.drug.DrugType;
 import com.suveraapp.objects.Days;
+import com.suveraapp.objects.Drug;
 import com.suveraapp.objects.Interval;
+import com.suveraapp.objects.MyDrug;
 import com.suveraapp.objects.Reason;
 import com.suveraapp.objects.Schedule;
-import com.suveraapp.objects.ScheduleList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +33,6 @@ public class Overview extends Fragment {
     private Interval interval;
     private Days days;
     private ArrayList<Schedule> drugSchedule;
-    private ScheduleList dSchedule = new ScheduleList();
     private List<String> arrList = new ArrayList<>();
     private MyDrug myDrug;
     private String[] name;
@@ -58,7 +56,7 @@ public class Overview extends Fragment {
         Bundle b = getArguments();
         int drugID = b.getInt("dID");
         String drugName = b.getString("dName");
-        String drugURL = b.getString("dUrl");
+        final String drugURL = b.getString("dUrl");
         String drugReason = b.getString("dReason");
         DrugType drugType = (DrugType) b.getSerializable("dType");
         boolean drugInterval = b.getBoolean("dInterval");
@@ -85,7 +83,6 @@ public class Overview extends Fragment {
                 arrList.add("• Dosage: " + String.valueOf(schedule.getDosage()) +
                         " • Time: " + formatTime(schedule.getTime()));
             }
-            dSchedule = new ScheduleList(drugID,drugSchedule);
         }
 
 
@@ -105,15 +102,13 @@ public class Overview extends Fragment {
                 getFragmentManager().popBackStack();
             }
         });
-
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Realm realm = Realm.getDefaultInstance();
-                myDrug = new MyDrug(select, reason, interval, days);
+                myDrug = new MyDrug(select, reason, interval, days, drugSchedule);
                 realm.beginTransaction();
                 realm.copyToRealmOrUpdate(myDrug);
-                realm.copyToRealmOrUpdate(dSchedule);
                 realm.commitTransaction();
                 realm.close();
                 Toast.makeText(getContext(), name[0] + " has been successfully added to your reminders.", Toast.LENGTH_LONG).show();
@@ -126,7 +121,6 @@ public class Overview extends Fragment {
 
     //convert milliseconds to hours and minutes
     public String formatTime(long time) {
-
         return String.format("%1$tH:%1$tM", time);
     }
 
