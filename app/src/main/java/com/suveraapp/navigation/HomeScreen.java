@@ -1,6 +1,9 @@
 package com.suveraapp.navigation;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +17,7 @@ import android.widget.TextView;
 
 import com.suveraapp.R;
 import com.suveraapp.adapter.MyDrugAdapter;
+import com.suveraapp.alarm.NotificationService;
 import com.suveraapp.objects.MyDrug;
 import com.suveraapp.objects.RealmInteger;
 import com.suveraapp.objects.Schedule;
@@ -47,6 +51,10 @@ public class HomeScreen extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AlarmManager manager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getContext(), NotificationService.class);
+        PendingIntent pendingIntent = PendingIntent.getService(getContext(),100,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        manager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,1000,5000,pendingIntent);
     }
 
     @Override

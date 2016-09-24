@@ -26,7 +26,12 @@
         <activity
             android:name=".onboarding.AddDrug"
             android:screenOrientation="portrait" />
-        <receiver android:name=".alarm.AlarmReceiver"></receiver>
+
+        <receiver android:name=".alarm.AlarmReceiver" />
+
+        <service
+            android:name=".alarm.NotificationService"
+            android:exported="false"></service>
     </application>
 
 </manifest>
