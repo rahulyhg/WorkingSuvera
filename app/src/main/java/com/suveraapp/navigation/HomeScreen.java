@@ -37,11 +37,7 @@ public class HomeScreen extends Fragment {
     private TextView timeOfDay;
     private int hour, day;
     private RecyclerView mRecylcerview;
-    private Realm mRealm;
-    private MyDrugAdapter myDrugAdapter;
     private RealmResults<MyDrug> results;
-    private RealmList<Schedule> mSchedule;
-    private RealmList<RealmInteger> mDay;
 
 
     public HomeScreen() {
@@ -52,9 +48,9 @@ public class HomeScreen extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AlarmManager manager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(getContext(), NotificationService.class);
-        PendingIntent pendingIntent = PendingIntent.getService(getContext(),100,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-        manager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,1000,5000,pendingIntent);
+       // Intent intent = new Intent(getContext(), NotificationService.class);
+     //   PendingIntent pendingIntent = PendingIntent.getService(getContext(),100,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+      //  manager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,1000,5000,pendingIntent);
     }
 
     @Override
@@ -80,7 +76,7 @@ public class HomeScreen extends Fragment {
             //eg, show all morning drugs (drugs between 3am and 12pm)
             MyDrug myDrug = drugs.get(a);
             String[] name = myDrug.getMyDrugName().split(" ");
-            mDay = myDrug.getMyDays();
+            RealmList<RealmInteger> mDay = myDrug.getMyDays();
 
             //finding each schedule item in schedule list
             for (int b = 0; b < mDay.size(); b++) {
@@ -90,14 +86,14 @@ public class HomeScreen extends Fragment {
                 //check if the current day is equal to the day in the days array
                 //and that this day has also been selected
                 if ((day == b+1) && (myDay==1)) {
-                    mSchedule = myDrug.getMySchedule();
+                    RealmList<Schedule> mSchedule = myDrug.getMySchedule();
 
-                    //check each individual schedule dosage and time
+                    //check each individual schedule object dosage and time
                     for (int c = 0; c < mSchedule.size(); c++) {
                         Schedule schedule = mSchedule.get(c);
                         UpdateResults updateResults = new UpdateResults();
 
-                        //change the schedule time (which is saved as long)
+                        //change the schedule time (which is saved as milliseconds)
                         //into a 24 hour time integer
                         String myTime = formatTime(schedule.getTime());
                         String[] time = myTime.split(":");
@@ -151,11 +147,11 @@ public class HomeScreen extends Fragment {
     //update view and show the current drugs that need to be taken
     public void updateAll() {
         getTimeFromAndroid();//get current time
-        mRealm = Realm.getDefaultInstance(); //get Realm database
+        Realm mRealm = Realm.getDefaultInstance();
         results = mRealm.where(MyDrug.class).findAll(); //find all drugs in database
         ArrayList<UpdateResults> currentList; //create a list to hold the drugs to be shown right now
         currentList = getCurrentList(results); //pass the drugs and find only the ones that need to be shone
-        myDrugAdapter = new MyDrugAdapter(getContext(), currentList); //create new adapter object using this list
+        MyDrugAdapter myDrugAdapter = new MyDrugAdapter(getContext(), currentList);
 
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         mRecylcerview.setLayoutManager(manager); //set the recycler view to a linear layout
