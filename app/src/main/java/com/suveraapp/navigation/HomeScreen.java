@@ -38,7 +38,7 @@ public class HomeScreen extends Fragment {
     private int hour, day;
     private RecyclerView mRecylcerview;
     private RealmResults<MyDrug> results;
-
+    private ArrayList<PendingIntent> intentArray = new ArrayList<>();
 
     public HomeScreen() {
         // Required empty public constructor
@@ -47,10 +47,10 @@ public class HomeScreen extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AlarmManager manager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
-       // Intent intent = new Intent(getContext(), NotificationService.class);
-     //   PendingIntent pendingIntent = PendingIntent.getService(getContext(),100,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-      //  manager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,1000,5000,pendingIntent);
+
+
+        //
+        //  manager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,1000,5000,pendingIntent);
     }
 
     @Override
@@ -68,7 +68,11 @@ public class HomeScreen extends Fragment {
     }
 
     public ArrayList<UpdateResults> getCurrentList(RealmResults<MyDrug> drugs) {
+
         ArrayList<UpdateResults> currentDrugs = new ArrayList<>();
+
+        //handling alarm setting
+        AlarmManager manager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
 
         for (int a = 0; a < drugs.size(); a++) {
 
@@ -84,17 +88,42 @@ public class HomeScreen extends Fragment {
                 int myDay = savedDay.getDay();
 
                 //check if the current day is equal to the day in the days array
-                //and that this day has also been selected
-                if ((day == b+1) && (myDay==1)) {
+                //and that this day has also been selected to have the drug
+                if ((day == b + 1) && (myDay == 1)) {
                     RealmList<Schedule> mSchedule = myDrug.getMySchedule();
 
                     //check each individual schedule object dosage and time
                     for (int c = 0; c < mSchedule.size(); c++) {
                         Schedule schedule = mSchedule.get(c);
                         UpdateResults updateResults = new UpdateResults();
+                        long diff = Calendar.getInstance().getTimeInMillis() - schedule.getTime();
+
+                        if (diff <= 0) {
+                            //append a the drugID with the alarm number
+                            //so if drugID = 1, and the current alarm is number 1
+                            //the pendingNumber = 10001, to prevent pendingNumbers
+                            //clashing with drugs that have the same drugID
+                            int pendingNumber = Integer.valueOf(String.valueOf(myDrug.getMyDrugID())
+                                    + "000" + String.valueOf(c));
+
+                            Intent intent = new Intent(getContext(), NotificationService.class);
+                            PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                                    getContext(), pendingNumber, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                            intentArray.add(pendingIntent); //add this pendingIntent to the pendingIntent array
+                            //so we can update/cancel this later if need be
+                            //set Alarm for day
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
+                                        schedule.getTime(), pendingIntent);
+                            } else {
+                                manager.setExact(AlarmManager.RTC_WAKEUP,
+                                        schedule.getTime(), pendingIntent);
+                            }
+                        }
 
                         //change the schedule time (which is saved as milliseconds)
                         //into a 24 hour time integer
+
                         String myTime = formatTime(schedule.getTime());
                         String[] time = myTime.split(":");
                         int myHour = Integer.parseInt(time[0]);
@@ -149,10 +178,12 @@ public class HomeScreen extends Fragment {
         getTimeFromAndroid();//get current time
         Realm mRealm = Realm.getDefaultInstance();
         results = mRealm.where(MyDrug.class).findAll(); //find all drugs in database
+
         ArrayList<UpdateResults> currentList; //create a list to hold the drugs to be shown right now
         currentList = getCurrentList(results); //pass the drugs and find only the ones that need to be shone
         MyDrugAdapter myDrugAdapter = new MyDrugAdapter(getContext(), currentList);
 
+        //handling recycler view
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         mRecylcerview.setLayoutManager(manager); //set the recycler view to a linear layout
         mRecylcerview.setAdapter(myDrugAdapter); //set the recycler adapter to display items
